@@ -1,4 +1,5 @@
-import { createProxyServer } from "http-proxy";
+import pkg from 'http-proxy';
+const { createProxyServer } = pkg;
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
