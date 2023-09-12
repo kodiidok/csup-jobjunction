@@ -1,0 +1,11 @@
+{
+  "name": "job-junction",
+  "version": "1.0.0",
+  "description": "Career day Interview Reservation and Information System",
+  "main": "index.js",
+  "author": "Sahan Kodituwakku",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.2.2"
+  }
+}
