@@ -21,7 +21,6 @@ export class Room {
   roomNumber: string;
 
   @OneToOne(() => Stall, (stall) => stall.room)
-  @Field(() => Stall)
   stall: Stall;
 
   @Column()

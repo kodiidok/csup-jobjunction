@@ -5,6 +5,7 @@ import {
   ManyToMany,
   OneToMany,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Room } from 'src/room/room.entity';
@@ -38,6 +39,7 @@ export class Student {
   @Field((type) => Interview, { nullable: true })
   interviews?: [Interview];
 
-  @OneToOne(() => User, (user) => user.student, { nullable: true })
+  @OneToOne(() => User, (user) => user.student)
+  @JoinColumn()
   user: User;
 }

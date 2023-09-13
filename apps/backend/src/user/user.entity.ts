@@ -10,7 +10,7 @@ export class User {
   @Field(() => ID)
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field({ nullable: true })
   name: string;
 

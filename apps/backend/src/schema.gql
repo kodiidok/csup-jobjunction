@@ -10,6 +10,7 @@ type Company {
 
 input CreateCompanyInput {
   companyName: String!
+  userId: ID!
 }
 
 input CreateInterviewInput {
@@ -39,6 +40,7 @@ input CreateStudentInput {
   studentEmail: String!
   studentId: String!
   studentName: String!
+  userId: ID!
 }
 
 input CreateUserInput {
@@ -104,14 +106,12 @@ type Room {
   interestedStudents: Student
   roomNumber: String!
   roomStatus: String!
-  stall: Stall!
 }
 
 type Stall {
   company: Company!
   floorPlanLocation: String
   id: ID!
-  room: Room!
   stallNumber: String!
 }
 
@@ -165,7 +165,6 @@ input UpdateStudentInput {
 
 input UpdateUserInput {
   email: String
-  id: ID!
   name: String
   password: String
   username: String

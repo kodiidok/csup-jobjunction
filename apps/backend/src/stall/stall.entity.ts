@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Room } from 'src/room/room.entity';
@@ -25,7 +26,7 @@ export class Stall {
   company: Company;
 
   @OneToOne(() => Room)
-  @Field(() => Room)
+  @JoinColumn()
   room: Room;
 
   @Column()

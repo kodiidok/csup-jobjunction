@@ -22,14 +22,16 @@ import { StudentModule } from './student/student.module';
       sortSchema: true,
       playground: true,
     }),
+    
     TypeOrmModule.forRoot(getDbConfig('postgres')),
+
     UserModule,
     CompanyModule,
     InterviewModule,
     RoomModule,
     StallModule,
     StudentModule,
-    AuthModule,
+    // AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

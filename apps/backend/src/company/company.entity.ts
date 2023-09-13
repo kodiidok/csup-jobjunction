@@ -4,6 +4,7 @@ import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -24,6 +25,7 @@ export class Company {
   @Field(() => [Stall], { nullable: true })
   stalls: Stall[];
 
-  @OneToOne(() => User, (user) => user.company, { nullable: true })
+  @OneToOne(() => User, (user) => user.company)
+  @JoinColumn()
   user: User;
 }

@@ -13,4 +13,7 @@ export class CreateStudentInput {
 
   @Field(() => [ID], { nullable: true })
   interestedRoomIds?: string[]; // Assuming you will provide an array of Room IDs
+
+  @Field(() => ID)
+  userId: string;
 }
