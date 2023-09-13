@@ -11,8 +11,10 @@ const port = 3000;
 const customServer = true;
 const conf = nextConfig;
 
-const proxy = createProxyServer({});
-const backendApi = "http://localhost:3333/"
+const proxy = createProxyServer({
+  target: "http://localhost:3333", // Set the target URL for the proxy
+  changeOrigin: true, // Change the origin of the host header to the target URL
+});
 
 const app = next({
   dev,
@@ -30,15 +32,15 @@ app.prepare().then(() => {
       const parsedUrl = parse(req.url ?? "", true);
       const { pathname, query } = parsedUrl;
 
-      if (pathname === "/backend/") {
-        proxy.web(req, res, { target: backendApi });
+      if (pathname?.startsWith("/graphql")) {
+        proxy.web(req, res); // Proxy requests to /graphql to the backend
       } else {
         handle(req, res, parsedUrl);
       }
     } catch (err) {
       console.error("Error occurred handling", req.url, err);
       res.statusCode = 500;
-      res.end("internal server error");
+      res.end("Internal server error");
     }
   })
     .once("error", (err) => {
