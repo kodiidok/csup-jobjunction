@@ -4,6 +4,7 @@ import styles from '@/app/page.module.css'
 import FloorPlan from '@/components/floorPlan/floorPlan'
 import Header from '@/components/header/header'
 import Stalls from '@/components/stalls/stalls'
+import Users from '@/components/users/users'
 
 export default function Home() {
 
@@ -17,6 +18,7 @@ export default function Home() {
           </div>
           <FloorPlan />
           <Stalls />
+          <Users />
         </div>
       </main>
     </>

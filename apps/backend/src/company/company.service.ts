@@ -32,11 +32,35 @@ export class CompanyService {
   }
 
   async findAllCompanies(): Promise<Company[]> {
-    return await this.companyRepository.find();
+    const companies = await this.companyRepository.find();
+
+    // Use Promise.all to fetch users for all companies concurrently
+    const populatedCompanies = await Promise.all(
+      companies.map(async (company) => {
+        const user = await this.userService.findUserById(company.userId);
+        if (user) {
+          // If user exists, associate it with the company
+          company.user = user;
+        }
+        return company;
+      }),
+    );
+
+    return populatedCompanies;
   }
 
   async findCompanyById(id: string): Promise<Company> {
-    return await this.companyRepository.findOne({ where: { id } });
+    const company = await this.companyRepository.findOne({ where: { id } });
+
+    if (company) {
+      // If the company exists, fetch and associate the user
+      const user = await this.userService.findUserById(company.userId);
+      if (user) {
+        company.user = user;
+      }
+    }
+
+    return company || null; // Return the company or null if not found
   }
 
   async updateCompany(id: string, input: Partial<Company>): Promise<Company> {
