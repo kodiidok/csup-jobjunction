@@ -1,4 +1,5 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
+import { User } from 'src/user/user.entity';
 
 @InputType()
 export class CreateStudentInput {
@@ -14,6 +15,6 @@ export class CreateStudentInput {
   @Field(() => [ID], { nullable: true })
   interestedRoomIds?: string[]; // Assuming you will provide an array of Room IDs
 
-  @Field(() => ID)
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  userId?: string;
 }

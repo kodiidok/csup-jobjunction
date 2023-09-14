@@ -25,7 +25,12 @@ export class Company {
   @Field(() => [Stall], { nullable: true })
   stalls: Stall[];
 
-  @OneToOne(() => User, (user) => user.company)
+  @Column({ name: 'userId' })
+  @Field(() => ID)
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.id)
   @JoinColumn()
+  @Field(() => User)
   user: User;
 }

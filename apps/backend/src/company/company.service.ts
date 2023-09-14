@@ -2,16 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Company } from './company.entity';
+import { UserService } from 'src/user/user.service';
+import { StallService } from 'src/stall/stall.service';
 
 @Injectable()
 export class CompanyService {
   constructor(
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
+    private userService: UserService,
+    private stallService: StallService,
   ) {}
 
   async createCompany(input: Partial<Company>): Promise<Company> {
-    const company = this.companyRepository.create(input);
+    const user = await this.userService.findUserById(input.userId);
+
+    if (!user) {
+      throw new Error('User not found!');
+    }
+
+    const newCompany = new Company();
+
+    newCompany.companyName = input.companyName;
+    newCompany.userId = input.userId;
+    newCompany.user = user;
+
+    const company = this.companyRepository.create(newCompany);
     return await this.companyRepository.save(company);
   }
 

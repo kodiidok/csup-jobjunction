@@ -26,9 +26,9 @@ export class User {
   @Field()
   password: string;
 
-  @OneToOne(() => Student, (student) => student.user, { nullable: true })
+  @OneToOne(() => Student, (student) => student.id, { nullable: true })
   student?: Student;
 
-  @OneToOne(() => Company, (company) => company.user, { nullable: true })
+  @OneToOne(() => Company, (company) => company.id, { nullable: true })
   company?: Company;
 }

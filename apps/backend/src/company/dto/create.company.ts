@@ -5,6 +5,6 @@ export class CreateCompanyInput {
   @Field()
   companyName: string;
 
-  @Field(() => ID)
-  userId: string;
+  @Field(() => ID, { nullable: true })
+  userId?: string;
 }

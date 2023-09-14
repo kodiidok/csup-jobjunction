@@ -39,7 +39,12 @@ export class Student {
   @Field((type) => Interview, { nullable: true })
   interviews?: [Interview];
 
-  @OneToOne(() => User, (user) => user.student)
+  @Column({ name: 'userId' })
+  @Field(() => ID)
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.id)
   @JoinColumn()
+  @Field(() => User)
   user: User;
 }

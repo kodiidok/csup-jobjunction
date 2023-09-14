@@ -2,17 +2,35 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from './student.entity';
+import { CreateStudentInput } from './dto/create.student';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
+    private userService: UserService,
   ) {}
 
-  async createStudent(input: Partial<Student>): Promise<Student> {
-    const student = this.studentRepository.create(input);
-    return await this.studentRepository.save(student);
+  async createStudent(input: CreateStudentInput): Promise<Student> {
+    const user = await this.userService.findUserById(input.userId);
+
+    if (!user) {
+      throw new Error('User not found!');
+    }
+
+    const newStudent = new Student();
+
+    newStudent.studentName = input.studentName;
+    newStudent.studentEmail = input.studentEmail;
+    newStudent.studentId = input.studentId;
+    newStudent.userId = input.userId;
+    newStudent.user = user;
+
+    const student = this.studentRepository.create(newStudent);
+    const createStudent = await this.studentRepository.save(student);
+    return createStudent;
   }
 
   async findAllStudents(): Promise<Student[]> {

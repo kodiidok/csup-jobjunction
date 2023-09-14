@@ -3,6 +3,10 @@ import client from '@/gql/client';
 import { useQuery } from '@apollo/client';
 import { USERS_QUERY } from '@/gql/query';
 
+interface StallProps {
+  companyName: string
+}
+
 export default function Stalls() {
   const { loading, error, data } = useQuery(USERS_QUERY, { client });
 
