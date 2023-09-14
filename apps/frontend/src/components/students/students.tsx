@@ -1,10 +1,10 @@
 import styles from '@/app/page.module.css';
 import client from '@/gql/client';
 import { useQuery } from '@apollo/client';
-import { USERS_QUERY } from '@/gql/query';
+import { STUDENTS_QUERY } from '@/gql/query';
 
-export default function Users() {
-  const { loading, error, data } = useQuery(USERS_QUERY, { client });
+export default function Students() {
+  const { loading, error, data } = useQuery(STUDENTS_QUERY, { client });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -16,10 +16,10 @@ export default function Users() {
 
   return (
     <div className={styles.queryContainer}>
-      {data.users?.map((user: any) => (
-        <div key={user.id}>
-          <h2>{user.name}</h2>
-          <p>Email: {user.email}</p>
+      {data.students?.map((student: any) => (
+        <div key={student.id}>
+          <h2>{student.studentName}</h2>
+          <p>{student.studentId}</p>
         </div>
       ))}
     </div>

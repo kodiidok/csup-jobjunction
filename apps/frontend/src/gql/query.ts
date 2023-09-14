@@ -14,24 +14,45 @@ export const USERS_QUERY = gql`
 
 export const COMPANIES_QUERY = gql`
   {
-    users {
-      email
+    companies {
+      companyName
       id
-      name
-      password
-      username
+      stalls {
+        floorPlanLocation
+        id
+        stallNumber
+      }
+      user {
+        email
+        id
+        name
+        password
+        username
+      }
     }
   }
 `;
 
 export const STUDENTS_QUERY = gql`
   {
-    users {
-      email
+    students {
       id
-      name
-      password
-      username
+      interestedRooms {
+        id
+      }
+      interviews {
+        id
+      }
+      studentEmail
+      studentId
+      studentName
+      user {
+        email
+        id
+        name
+        password
+        username
+      }
     }
   }
 `;

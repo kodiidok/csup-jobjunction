@@ -34,11 +34,13 @@
   object-fit: contain;
 }
 
-.stallsContainer {
+.queryContainer {
   width: 300px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 }
+
 /* Enable hover only on non-touch devices */
 /* @media (hover: hover) and (pointer: fine) {
 
