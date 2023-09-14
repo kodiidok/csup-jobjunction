@@ -34,11 +34,35 @@ export class StudentService {
   }
 
   async findAllStudents(): Promise<Student[]> {
-    return await this.studentRepository.find();
+    const students = await this.studentRepository.find();
+
+    // Use Promise.all to fetch users for all students concurrently
+    const populatedStudents = await Promise.all(
+      students.map(async (student) => {
+        const user = await this.userService.findUserById(student.userId);
+        if (user) {
+          // If user exists, associate it with the student
+          student.user = user;
+        }
+        return student;
+      }),
+    );
+
+    return populatedStudents;
   }
 
   async findStudentById(id: string): Promise<Student> {
-    return await this.studentRepository.findOne({ where: { id } });
+    const student = await this.studentRepository.findOne({ where: { id } });
+
+    if (student) {
+      // If the student exists, fetch and associate the user
+      const user = await this.userService.findUserById(student.userId);
+      if (user) {
+        student.user = user;
+      }
+    }
+
+    return student || null; // Return the student or null if not found
   }
 
   async updateStudent(id: string, input: Partial<Student>): Promise<Student> {
