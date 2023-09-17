@@ -37,6 +37,7 @@ export class Interview {
     joinColumn: { name: 'interviewId', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'studentId' },
   })
+  @Field(() => [Student], { nullable: true })
   students: Student[];
 
   @ManyToOne((type) => Room, (room: Room) => room.id, {
@@ -45,6 +46,7 @@ export class Interview {
     nullable: true,
   })
   @JoinColumn([{ name: 'roomId', referencedColumnName: 'id' }])
+  @Field(() => Room, { nullable: true })
   room: Room;
 
   @Column({ nullable: true })

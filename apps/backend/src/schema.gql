@@ -74,7 +74,7 @@ type Interview {
   interviewTime: String
   room: Room
   status: String
-  students: Student
+  students: [Student!]
 }
 
 type Mutation {
