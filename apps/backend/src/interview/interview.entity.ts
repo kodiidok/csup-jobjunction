@@ -31,14 +31,16 @@ export class Interview {
   @Field({ nullable: true })
   status?: string;
 
-  @ManyToMany((type) => Student, { cascade: true })
+  @ManyToMany((type) => Student, (student: Student) => student.interviews, {
+    nullable: true,
+  })
   @JoinTable({
     name: 'student_interviews',
     joinColumn: { name: 'interviewId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'studentId' },
+    inverseJoinColumn: { name: 'studentId', referencedColumnName: 'id' },
   })
   @Field(() => [Student], { nullable: true })
-  students: Student[];
+  students?: Student[];
 
   @ManyToOne((type) => Room, (room: Room) => room.id, {
     onDelete: 'SET NULL',

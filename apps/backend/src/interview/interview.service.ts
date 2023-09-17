@@ -18,18 +18,38 @@ export class InterviewService {
     input: Partial<Interview>,
     studentIds: string[],
   ): Promise<Interview> {
-    input.students = await this.studentService.findStudentsByIds(studentIds);
+    if (studentIds) {
+      input.students = await this.studentService.findStudentsByIds(studentIds);
+    }
     input.room = await this.roomService.findRoomById(input.roomId);
     const interview = this.interviewRepository.create(input);
     return await this.interviewRepository.save(interview);
   }
 
   async findAllInterviews(): Promise<Interview[]> {
-    return await this.interviewRepository.find();
+    const interviews = await this.interviewRepository.find();
+    await Promise.all(
+      interviews.map(async (interview) => {
+        const room = await this.roomService.findRoomById(interview.roomId);
+        const students = await this.studentService.findStudentsByInterviewId(
+          interview.id,
+        );
+        interview.room = room;
+        interview.students = students;
+      }),
+    );
+    return interviews;
   }
 
   async findInterviewById(id: string): Promise<Interview> {
-    return await this.interviewRepository.findOne({ where: { id } });
+    const interview = await this.interviewRepository.findOne({ where: { id } });
+    const room = await this.roomService.findRoomById(interview.roomId);
+    const students = await this.studentService.findStudentsByInterviewId(
+      interview.id,
+    );
+    interview.room = room;
+    interview.students = students;
+    return interview;
   }
 
   async updateInterview(
@@ -37,7 +57,9 @@ export class InterviewService {
     input: Partial<Interview>,
     studentIds: string[],
   ): Promise<Interview> {
-    input.students = await this.studentService.findStudentsByIds(studentIds);
+    if (studentIds) {
+      input.students = await this.studentService.findStudentsByIds(studentIds);
+    }
     input.room = await this.roomService.findRoomById(input.roomId);
     await this.interviewRepository.update(id, input);
     return await this.interviewRepository.findOne({ where: { id } });

@@ -79,7 +79,7 @@ type Interview {
 
 type Mutation {
   createCompany(input: CreateCompanyInput!): Company!
-  createInterview(input: CreateInterviewInput!, studentIds: [String!]!): Interview!
+  createInterview(input: CreateInterviewInput!, studentIds: [String!]): Interview!
   createRole(input: CreateRoleInput!): Role!
   createRoom(input: CreateRoomInput!): Room!
   createStall(input: CreateStallInput!): Stall!
@@ -94,7 +94,7 @@ type Mutation {
   deleteUser(id: String!): User!
   softDeleteRole(id: String!): Role!
   updateCompany(id: ID!, input: UpdateCompanyInput!): Company!
-  updateInterview(id: ID!, input: UpdateInterviewInput!, studentIds: [String!]!): Interview!
+  updateInterview(id: ID!, input: UpdateInterviewInput!, studentIds: [String!]): Interview!
   updateRole(id: String!, input: UpdateRoleInput!): Role!
   updateRoom(id: ID!, input: UpdateRoomInput!): Room!
   updateStall(id: ID!, input: UpdateStallInput!): Stall!

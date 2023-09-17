@@ -13,10 +13,16 @@ import { UpdateInterviewInput } from './dto/update.interview';
 import { CreateInterviewInput } from './dto/create.interview';
 import { Student } from 'src/student/student.entity';
 import { Room } from 'src/room/room.entity';
+import { RoomService } from 'src/room/room.service';
+import { StudentService } from 'src/student/student.service';
 
 @Resolver(() => Interview)
 export class InterviewResolver {
-  constructor(private readonly interviewService: InterviewService) {}
+  constructor(
+    private readonly interviewService: InterviewService,
+    private readonly roomService: RoomService,
+    private readonly studentService: StudentService,
+  ) {}
 
   @ResolveField(() => Student, { nullable: true })
   async students(@Parent() interview: Interview): Promise<Student[] | null> {
@@ -61,10 +67,17 @@ export class InterviewResolver {
   @Mutation(() => Interview, { name: 'createInterview' })
   async createInterview(
     @Args('input') input: CreateInterviewInput,
-    @Args('studentIds', { type: () => [String] }) studentIds: string[],
+    @Args('studentIds', { type: () => [String], nullable: true })
+    studentIds?: string[],
   ): Promise<Interview> {
     try {
-      return await this.interviewService.createInterview(input, studentIds);
+      // Check if studentIds are provided
+      if (studentIds && studentIds.length > 0) {
+        return await this.interviewService.createInterview(input, studentIds);
+      } else {
+        // Create an interview without associating any students
+        return await this.interviewService.createInterview(input, null);
+      }
     } catch (error) {
       throw new Error(`Error creating interview: ${error.message}`);
     }
@@ -74,10 +87,17 @@ export class InterviewResolver {
   async updateInterview(
     @Args('id', { type: () => ID }) id: string,
     @Args('input') input: UpdateInterviewInput,
-    @Args('studentIds', { type: () => [String] }) studentIds: string[],
+    @Args('studentIds', { type: () => [String], nullable: true })
+    studentIds?: string[],
   ): Promise<Interview> {
     try {
-      return await this.interviewService.updateInterview(id, input, studentIds);
+      // Check if studentIds are provided
+      if (studentIds && studentIds.length > 0) {
+        return await this.interviewService.updateInterview(id, input, studentIds);
+      } else {
+        // Create an interview without associating any students
+        return await this.interviewService.updateInterview(id, input, null);
+      }
     } catch (error) {
       throw new Error(`Error updating interview: ${error.message}`);
     }

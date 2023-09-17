@@ -22,6 +22,15 @@ export class StudentService {
       .getMany();
   }
 
+  async findStudentsByInterviewId(interviewId: string): Promise<Student[]> {
+    const queryBuilder = this.studentRepository
+      .createQueryBuilder('student')
+      .innerJoin('student.interviews', 'student_interviews')
+      .where('"interviewId" = :interviewId', { interviewId })
+      .getMany();
+    return queryBuilder;
+  }
+
   async findStudentById(id: string): Promise<Student> {
     return await this.studentRepository.findOne({ where: { id } });
   }

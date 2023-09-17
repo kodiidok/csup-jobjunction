@@ -6,7 +6,9 @@ import { User } from 'src/users/user.entity';
 @Entity()
 @ObjectType()
 export class Student extends User {
-  @ManyToMany((type) => Interview, (interview) => interview.id)
+  @ManyToMany((type) => Interview, (interview) => interview.students, {
+    nullable: true,
+  })
   interviews: Interview[];
 
   @Column()
