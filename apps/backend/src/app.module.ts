@@ -6,13 +6,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getDbConfig } from './common/config/ormconfig';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { CompanyModule } from './company/company.module';
-import { InterviewModule } from './interview/interview.module';
-import { RoomModule } from './room/room.module';
-import { StallModule } from './stall/stall.module';
+import { UserModule } from './users/user.module';
+import { RoleModule } from './roles/role.module';
 import { StudentModule } from './student/student.module';
+import { InterviewModule } from './interview/interview.module';
 
 @Module({
   imports: [
@@ -26,11 +23,9 @@ import { StudentModule } from './student/student.module';
     TypeOrmModule.forRoot(getDbConfig('postgres')),
 
     UserModule,
-    CompanyModule,
-    InterviewModule,
-    RoomModule,
-    StallModule,
+    RoleModule,
     StudentModule,
+    InterviewModule,
     // AuthModule,
   ],
   controllers: [AppController],

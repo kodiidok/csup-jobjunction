@@ -1,4 +1,4 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateUserInput {
@@ -13,4 +13,7 @@ export class UpdateUserInput {
 
   @Field({ nullable: true })
   password?: string;
+
+  @Field({ nullable: true })
+  roleId?: string;
 }

@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Company } from './company.entity';
 import { CompanyService } from './company.service';
 import { CompanyResolver } from './company.resolver';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/users/user.module';
 import { StallModule } from 'src/stall/stall.module';
 
 @Module({

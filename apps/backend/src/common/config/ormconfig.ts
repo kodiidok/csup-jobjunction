@@ -1,14 +1,12 @@
-import { Company } from 'src/company/company.entity';
 import { Interview } from 'src/interview/interview.entity';
-import { Room } from 'src/room/room.entity';
-import { Stall } from 'src/stall/stall.entity';
+import { Role } from 'src/roles/role.entity';
 import { Student } from 'src/student/student.entity';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/users/user.entity';
 import { DataSourceOptions } from 'typeorm';
 
 export function getDbConfig(db: string): DataSourceOptions {
   const dbType = db || process.env.DB || 'postgres';
-  const entities = [User, Company, Interview, Room, Stall, Student];
+  const entities = [User, Role, Student, Interview];
 
   const commonConfig: DataSourceOptions = {
     synchronize: false,
@@ -31,6 +29,7 @@ export function getDbConfig(db: string): DataSourceOptions {
         ...commonConfig,
         synchronize: true,
         type: 'postgres',
+        migrationsRun: true,
         port: Number(process.env.DB_PORT) || 5432,
         schema: process.env.DB_SCHEMA || 'public',
       };

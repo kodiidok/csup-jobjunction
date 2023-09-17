@@ -1,12 +1,18 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { Interview } from './interview.entity';
 import { InterviewService } from './interview.service';
 import { UpdateInterviewInput } from './dto/update.interview';
 import { CreateInterviewInput } from './dto/create.interview';
+import { Student } from 'src/student/student.entity';
 
 @Resolver(() => Interview)
 export class InterviewResolver {
   constructor(private readonly interviewService: InterviewService) {}
+
+  @ResolveField(() => Student, { nullable: true })
+  async students(@Parent() interview: Interview): Promise<Student[] | null> {
+    return interview.students || null;
+  }
 
   @Query(() => [Interview], { name: 'interviews' })
   async findAllInterviews(): Promise<Interview[]> {

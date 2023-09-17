@@ -20,16 +20,16 @@ export class Room {
   @Field()
   roomNumber: string;
 
-  @OneToOne(() => Stall, (stall) => stall.room)
-  stall: Stall;
+  // @OneToOne(() => Stall, (stall) => stall.room)
+  // stall: Stall;
 
   @Column()
   @Field()
   roomStatus: string;
 
-  @ManyToMany(() => Student, (student) => student.id, { nullable: true })
-  @Field(() => Student, { nullable: true })
-  interestedStudents?: [Student];
+  // @ManyToMany(() => Student, (student) => student.id, { nullable: true })
+  // @Field(() => Student, { nullable: true })
+  // interestedStudents?: [Student];
 
   @Column()
   @Field({ nullable: true })

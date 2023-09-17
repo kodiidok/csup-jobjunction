@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Stall } from 'src/stall/stall.entity';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/users/user.entity';
 import {
   Column,
   Entity,
@@ -12,25 +12,8 @@ import {
 
 @Entity()
 @ObjectType()
-export class Company {
-  @PrimaryGeneratedColumn()
-  @Field(() => ID)
-  id: string;
-
-  @Column()
-  @Field()
-  companyName: string;
-
-  @OneToMany(() => Stall, (stall) => stall.company, { nullable: true })
-  @Field(() => [Stall], { nullable: true })
-  stalls: Stall[];
-
-  @Column({ name: 'userId' })
-  @Field(() => ID)
-  userId: string;
-
-  @OneToOne(() => User, (user) => user.id)
-  @JoinColumn()
-  @Field(() => User)
-  user: User;
+export class Company extends User{
+  // @OneToMany(() => Stall, (stall) => stall.company, { nullable: true })
+  // @Field(() => [Stall], { nullable: true })
+  // stalls: Stall[];
 }

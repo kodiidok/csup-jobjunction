@@ -2,18 +2,21 @@ import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateStudentInput {
-  @Field(() => ID)
-  id: string;
+  @Field({ nullable: true })
+  name?: string;
 
   @Field({ nullable: true })
-  studentId?: string;
+  username?: string;
 
   @Field({ nullable: true })
-  studentEmail?: string;
+  email?: string;
 
   @Field({ nullable: true })
-  studentName?: string;
+  password?: string;
 
-  @Field(() => [ID], { nullable: true })
-  interestedRoomIds?: string[];
+  @Field({ nullable: true })
+  roleId?: string;
+
+  // @Field(() => [ID], { nullable: true })
+  // interestedRoomIds?: string[];
 }

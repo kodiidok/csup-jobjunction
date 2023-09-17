@@ -21,13 +21,13 @@ export class Stall {
   @Field()
   stallNumber: string;
 
-  @ManyToOne(() => Company, (company) => company.stalls)
-  @Field(() => Company)
-  company: Company;
+  // @ManyToOne(() => Company, (company) => company.stalls)
+  // @Field(() => Company)
+  // company: Company;
 
-  @OneToOne(() => Room)
-  @JoinColumn()
-  room: Room;
+  // @OneToOne(() => Room)
+  // @JoinColumn()
+  // room: Room;
 
   @Column()
   @Field({ nullable: true })

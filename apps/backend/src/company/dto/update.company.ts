@@ -2,11 +2,18 @@ import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateCompanyInput {
-  @Field(() => ID)
-  id: string;
+  @Field({ nullable: true })
+  name?: string;
 
   @Field({ nullable: true })
-  companyName?: string;
+  username?: string;
 
-  // You can add other fields as needed
+  @Field({ nullable: true })
+  email?: string;
+
+  @Field({ nullable: true })
+  password?: string;
+
+  @Field({ nullable: true })
+  roleId?: string;
 }

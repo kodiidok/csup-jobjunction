@@ -1,20 +1,22 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
-import { User } from 'src/user/user.entity';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateStudentInput {
-  @Field()
-  studentId: string;
+  @Field({ nullable: true })
+  name?: string;
 
-  @Field()
-  studentEmail: string;
+  @Field({ nullable: true })
+  username: string;
 
-  @Field()
-  studentName: string;
+  @Field({ nullable: true })
+  email: string;
 
-  @Field(() => [ID], { nullable: true })
-  interestedRoomIds?: string[]; // Assuming you will provide an array of Room IDs
+  @Field({ nullable: true })
+  password: string;
 
-  @Field(() => ID, { nullable: true })
-  userId?: string;
+  @Field({ nullable: true })
+  roleId?: string;
+
+  // @Field(() => [ID], { nullable: true })
+  // interestedRoomIds?: string[]; // Assuming you will provide an array of Room IDs
 }

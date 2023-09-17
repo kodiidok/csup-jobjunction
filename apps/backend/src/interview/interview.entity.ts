@@ -1,13 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToOne,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Student } from 'src/student/student.entity';
-import { Room } from 'src/room/room.entity';
 
 @Entity()
 @ObjectType()
@@ -24,15 +17,15 @@ export class Interview {
   @Field()
   interviewTime: string;
 
-  @OneToOne(() => Room)
-  @Field(() => Room)
-  room: Room;
-
-  @ManyToOne(() => Student)
-  @Field(() => Student)
-  student: Student;
-
   @Column()
   @Field({ nullable: true })
   status?: string;
+
+  @ManyToMany((type) => Student, { cascade: true })
+  @JoinTable({
+    name: 'student_interviews',
+    joinColumn: { name: 'interviewId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'studentId' },
+  })
+  students: Student[];
 }
