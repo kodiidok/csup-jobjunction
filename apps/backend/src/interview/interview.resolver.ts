@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { Interview } from './interview.entity';
 import { InterviewService } from './interview.service';
 import { UpdateInterviewInput } from './dto/update.interview';
@@ -12,39 +20,77 @@ export class InterviewResolver {
 
   @ResolveField(() => Student, { nullable: true })
   async students(@Parent() interview: Interview): Promise<Student[] | null> {
-    return interview.students || null;
+    try {
+      return interview.students || null;
+    } catch (error) {
+      throw new Error(
+        `Error fetching students for interview: ${error.message}`,
+      );
+    }
   }
 
   @ResolveField(() => Room, { nullable: true })
   async room(@Parent() interview: Interview): Promise<Room | null> {
-    return interview.room || null;
+    try {
+      return interview.room || null;
+    } catch (error) {
+      throw new Error(`Error fetching room for interview: ${error.message}`);
+    }
   }
 
   @Query(() => [Interview], { name: 'interviews' })
   async findAllInterviews(): Promise<Interview[]> {
-    return this.interviewService.findAllInterviews();
+    try {
+      return await this.interviewService.findAllInterviews();
+    } catch (error) {
+      throw new Error(`Error fetching interviews: ${error.message}`);
+    }
   }
 
   @Query(() => Interview, { name: 'interview' })
-  async findInterviewById(@Args('id', { type: () => ID }) id: string): Promise<Interview> {
-    return this.interviewService.findInterviewById(id);
+  async findInterviewById(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Interview> {
+    try {
+      return await this.interviewService.findInterviewById(id);
+    } catch (error) {
+      throw new Error(`Error fetching interview by ID: ${error.message}`);
+    }
   }
 
   @Mutation(() => Interview, { name: 'createInterview' })
-  async createInterview(@Args('input') input: CreateInterviewInput): Promise<Interview> {
-    return this.interviewService.createInterview(input);
+  async createInterview(
+    @Args('input') input: CreateInterviewInput,
+    @Args('studentIds', { type: () => [String] }) studentIds: string[],
+  ): Promise<Interview> {
+    try {
+      return await this.interviewService.createInterview(input, studentIds);
+    } catch (error) {
+      throw new Error(`Error creating interview: ${error.message}`);
+    }
   }
 
   @Mutation(() => Interview, { name: 'updateInterview' })
   async updateInterview(
     @Args('id', { type: () => ID }) id: string,
     @Args('input') input: UpdateInterviewInput,
+    @Args('studentIds', { type: () => [String] }) studentIds: string[],
   ): Promise<Interview> {
-    return this.interviewService.updateInterview(id, input);
+    try {
+      return await this.interviewService.updateInterview(id, input, studentIds);
+    } catch (error) {
+      throw new Error(`Error updating interview: ${error.message}`);
+    }
   }
 
   @Mutation(() => Interview, { name: 'deleteInterview' })
-  async deleteInterview(@Args('id', { type: () => ID }) id: string): Promise<Interview> {
-    return this.interviewService.deleteInterview(id);
+  async deleteInterview(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Interview> {
+    try {
+      return await this.interviewService.deleteInterview(id);
+    } catch (error) {
+      throw new Error(`Error deleting interview: ${error.message}`);
+    }
   }
 }

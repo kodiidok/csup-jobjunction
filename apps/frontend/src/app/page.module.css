@@ -10,6 +10,10 @@
   max-width: 900px;
 }
 
+.appName {
+  color: var(--blue8);
+}
+
 .hero {
   max-width: 900px;
   width: 100%;
@@ -24,14 +28,26 @@
   width: 100%;
   background-color: var(--dark7);
   color: var(--gray0);
-  height: 4rem;
+  height: 5rem;
   display: flex;
   align-items: center;
   padding: 1rem;
+  justify-content: space-between;
+}
+
+.facultyHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .floorPlanImageContainer {
   object-fit: contain;
+}
+
+.imageContainer {
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .queryContainer {
@@ -39,6 +55,44 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.stallInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: var(--gray0);
+  padding: 1rem;
+}
+
+.stallInnerContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.stallOuterContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: var(--gray0);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.roomVacantStatus {
+  display: flex;
+  width: 8rem;
+}
+
+.roomVacantStatus h4 {
+  text-align: right;
+  line-height: 1.2rem;
+}
+
+.roomStatusIndicator {
+  background-color: var(--dark7);
+  min-width: 10px;
+  max-width: 20px;
 }
 
 /* Enable hover only on non-touch devices */

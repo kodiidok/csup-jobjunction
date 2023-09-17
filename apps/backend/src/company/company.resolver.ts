@@ -10,21 +10,33 @@ export class CompanyResolver {
 
   @Query(() => [Company], { name: 'companies' })
   async findAllCompanies(): Promise<Company[]> {
-    return this.companyService.findAllCompanies();
+    try {
+      return await this.companyService.findAllCompanies();
+    } catch (error) {
+      throw new Error(`Error fetching companies: ${error.message}`);
+    }
   }
 
   @Query(() => Company, { name: 'company' })
   async findCompanyById(
     @Args('id', { type: () => ID }) id: string,
   ): Promise<Company> {
-    return this.companyService.findCompanyById(id);
+    try {
+      return await this.companyService.findCompanyById(id);
+    } catch (error) {
+      throw new Error(`Error fetching company by ID: ${error.message}`);
+    }
   }
 
   @Mutation(() => Company, { name: 'createCompany' })
   async createCompany(
     @Args('input') input: CreateCompanyInput,
   ): Promise<Company> {
-    return this.companyService.createCompany(input);
+    try {
+      return await this.companyService.createCompany(input);
+    } catch (error) {
+      throw new Error(`Error creating company: ${error.message}`);
+    }
   }
 
   @Mutation(() => Company, { name: 'updateCompany' })
@@ -32,13 +44,21 @@ export class CompanyResolver {
     @Args('id', { type: () => ID }) id: string,
     @Args('input') input: UpdateCompanyInput,
   ): Promise<Company> {
-    return this.companyService.updateCompany(id, input);
+    try {
+      return await this.companyService.updateCompany(id, input);
+    } catch (error) {
+      throw new Error(`Error updating company: ${error.message}`);
+    }
   }
 
   @Mutation(() => Company, { name: 'deleteCompany' })
   async deleteCompany(
     @Args('id', { type: () => ID }) id: string,
   ): Promise<Company> {
-    return this.companyService.deleteCompany(id);
+    try {
+      return await this.companyService.deleteCompany(id);
+    } catch (error) {
+      throw new Error(`Error deleting company: ${error.message}`);
+    }
   }
 }

@@ -9,11 +9,12 @@ import {
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Room } from 'src/room/room.entity';
 import { Company } from 'src/company/company.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
 @ObjectType()
 export class Stall {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
 
@@ -28,6 +29,9 @@ export class Stall {
   @Field({ nullable: true })
   floorPlanLocation?: string;
 
+  @Column({ nullable: true })
+  companyId?: string;
+
   @ManyToOne((type) => Company, (company: Company) => company.id, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
@@ -36,4 +40,8 @@ export class Stall {
   @JoinColumn({ name: 'companyId', referencedColumnName: 'id' })
   @Field(() => Company, { nullable: true })
   company?: Company;
+
+  constructor() {
+    this.id = uuidv4(); // Generate a new UUID for the 'id' field when a new Stall instance is created
+  }
 }

@@ -10,23 +10,24 @@ import {
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Student } from 'src/student/student.entity';
 import { Room } from 'src/room/room.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
 @ObjectType()
 export class Interview {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
 
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   interviewDate: Date;
 
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   interviewTime: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Field({ nullable: true })
   status?: string;
 
@@ -45,4 +46,11 @@ export class Interview {
   })
   @JoinColumn([{ name: 'roomId', referencedColumnName: 'id' }])
   room: Room;
+
+  @Column({ nullable: true })
+  roomId: string;
+
+  constructor() {
+    this.id = uuidv4(); // Generate a new UUID for the 'id' field when a new Interview instance is created
+  }
 }

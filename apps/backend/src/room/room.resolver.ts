@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ID,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { Room } from './room.entity';
 import { RoomService } from './room.service';
 import { CreateRoomInput } from './dto/create.room';
@@ -16,17 +24,31 @@ export class RoomResolver {
 
   @Query(() => [Room], { name: 'rooms' })
   async findAllRooms(): Promise<Room[]> {
-    return this.roomService.findAllRooms();
+    try {
+      return await this.roomService.findAllRooms();
+    } catch (error) {
+      throw new Error(`Error fetching rooms: ${error.message}`);
+    }
   }
 
   @Query(() => Room, { name: 'room' })
-  async findRoomById(@Args('id', { type: () => ID }) id: string): Promise<Room> {
-    return this.roomService.findRoomById(id);
+  async findRoomById(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Room> {
+    try {
+      return await this.roomService.findRoomById(id);
+    } catch (error) {
+      throw new Error(`Error fetching room by ID: ${error.message}`);
+    }
   }
 
   @Mutation(() => Room, { name: 'createRoom' })
   async createRoom(@Args('input') input: CreateRoomInput): Promise<Room> {
-    return this.roomService.createRoom(input);
+    try {
+      return await this.roomService.createRoom(input);
+    } catch (error) {
+      throw new Error(`Error creating room: ${error.message}`);
+    }
   }
 
   @Mutation(() => Room, { name: 'updateRoom' })
@@ -34,11 +56,19 @@ export class RoomResolver {
     @Args('id', { type: () => ID }) id: string,
     @Args('input') input: UpdateRoomInput,
   ): Promise<Room> {
-    return this.roomService.updateRoom(id, input);
+    try {
+      return await this.roomService.updateRoom(id, input);
+    } catch (error) {
+      throw new Error(`Error updating room: ${error.message}`);
+    }
   }
 
   @Mutation(() => Room, { name: 'deleteRoom' })
   async deleteRoom(@Args('id', { type: () => ID }) id: string): Promise<Room> {
-    return this.roomService.deleteRoom(id);
+    try {
+      return await this.roomService.deleteRoom(id);
+    } catch (error) {
+      throw new Error(`Error deleting room: ${error.message}`);
+    }
   }
 }

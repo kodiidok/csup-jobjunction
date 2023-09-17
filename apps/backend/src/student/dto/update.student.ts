@@ -17,6 +17,6 @@ export class UpdateStudentInput {
   @Field({ nullable: true })
   roleId?: string;
 
-  // @Field(() => [ID], { nullable: true })
-  // interestedRoomIds?: string[];
+  @Field({nullable: true})
+  studentId?: string;
 }

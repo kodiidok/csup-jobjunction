@@ -10,4 +10,7 @@ export class UpdateInterviewInput {
 
   @Field({ nullable: true })
   status?: string;
+
+  @Field({ nullable: true })
+  roomId?: string;
 }

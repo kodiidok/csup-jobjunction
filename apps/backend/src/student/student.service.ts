@@ -15,6 +15,13 @@ export class StudentService {
     return await this.studentRepository.find();
   }
 
+  async findStudentsByIds(studentIds: string[]): Promise<Student[]> {
+    return await this.studentRepository
+      .createQueryBuilder('student')
+      .where('student.id IN (:...studentIds)', { studentIds })
+      .getMany();
+  }
+
   async findStudentById(id: string): Promise<Student> {
     return await this.studentRepository.findOne({ where: { id } });
   }

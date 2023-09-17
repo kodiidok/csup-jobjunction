@@ -20,8 +20,9 @@ input CreateCompanyInput {
 }
 
 input CreateInterviewInput {
-  interviewDate: DateTime!
-  interviewTime: String!
+  interviewDate: DateTime
+  interviewTime: String
+  roomId: String
   status: String
 }
 
@@ -41,7 +42,7 @@ input CreateRoomInput {
 input CreateStallInput {
   companyId: ID!
   floorPlanLocation: String
-  roomId: ID!
+  roomId: ID
   stallNumber: String!
 }
 
@@ -50,6 +51,7 @@ input CreateStudentInput {
   name: String
   password: String
   roleId: String
+  studentId: String!
   username: String
 }
 
@@ -68,8 +70,8 @@ scalar DateTime
 
 type Interview {
   id: ID!
-  interviewDate: DateTime!
-  interviewTime: String!
+  interviewDate: DateTime
+  interviewTime: String
   room: Room
   status: String
   students: Student
@@ -77,7 +79,7 @@ type Interview {
 
 type Mutation {
   createCompany(input: CreateCompanyInput!): Company!
-  createInterview(input: CreateInterviewInput!): Interview!
+  createInterview(input: CreateInterviewInput!, studentIds: [String!]!): Interview!
   createRole(input: CreateRoleInput!): Role!
   createRoom(input: CreateRoomInput!): Room!
   createStall(input: CreateStallInput!): Stall!
@@ -92,7 +94,7 @@ type Mutation {
   deleteUser(id: String!): User!
   softDeleteRole(id: String!): Role!
   updateCompany(id: ID!, input: UpdateCompanyInput!): Company!
-  updateInterview(id: ID!, input: UpdateInterviewInput!): Interview!
+  updateInterview(id: ID!, input: UpdateInterviewInput!, studentIds: [String!]!): Interview!
   updateRole(id: String!, input: UpdateRoleInput!): Role!
   updateRoom(id: ID!, input: UpdateRoomInput!): Room!
   updateStall(id: ID!, input: UpdateStallInput!): Stall!
@@ -146,6 +148,7 @@ type Student {
   name: String
   password: String!
   role: Role
+  studentId: String!
   username: String!
 }
 
@@ -160,6 +163,7 @@ input UpdateCompanyInput {
 input UpdateInterviewInput {
   interviewDate: DateTime
   interviewTime: String
+  roomId: String
   status: String
 }
 
@@ -190,6 +194,7 @@ input UpdateStudentInput {
   name: String
   password: String
   roleId: String
+  studentId: String
   username: String
 }
 

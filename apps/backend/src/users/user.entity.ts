@@ -7,12 +7,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
 @ObjectType()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
 
@@ -32,7 +32,7 @@ export class User {
   @Field({ nullable: true })
   name: string;
 
-  @Column({ name: 'role_id', nullable: true })
+  @Column({ name: 'roleId', nullable: true })
   roleId?: string;
 
   @ManyToOne(() => Role, (entity: Role) => entity.id, {
@@ -40,7 +40,11 @@ export class User {
     onUpdate: 'CASCADE',
     nullable: true,
   })
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'roleId', referencedColumnName: 'id' })
   @Field(() => Role, { nullable: true })
   role?: Role;
+
+  constructor() {
+    this.id = uuidv4(); // Generate a new UUID for the 'id' field when a new User instance is created
+  }
 }
