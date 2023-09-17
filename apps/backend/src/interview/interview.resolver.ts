@@ -4,6 +4,7 @@ import { InterviewService } from './interview.service';
 import { UpdateInterviewInput } from './dto/update.interview';
 import { CreateInterviewInput } from './dto/create.interview';
 import { Student } from 'src/student/student.entity';
+import { Room } from 'src/room/room.entity';
 
 @Resolver(() => Interview)
 export class InterviewResolver {
@@ -12,6 +13,11 @@ export class InterviewResolver {
   @ResolveField(() => Student, { nullable: true })
   async students(@Parent() interview: Interview): Promise<Student[] | null> {
     return interview.students || null;
+  }
+
+  @ResolveField(() => Room, { nullable: true })
+  async room(@Parent() interview: Interview): Promise<Room | null> {
+    return interview.room || null;
   }
 
   @Query(() => [Interview], { name: 'interviews' })

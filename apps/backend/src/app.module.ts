@@ -10,6 +10,9 @@ import { UserModule } from './users/user.module';
 import { RoleModule } from './roles/role.module';
 import { StudentModule } from './student/student.module';
 import { InterviewModule } from './interview/interview.module';
+import { RoomModule } from './room/room.module';
+import { StallModule } from './stall/stall.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { InterviewModule } from './interview/interview.module';
     RoleModule,
     StudentModule,
     InterviewModule,
+    RoomModule,
+    StallModule,
+    CompanyModule,
     // AuthModule,
   ],
   controllers: [AppController],

@@ -1,12 +1,18 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { Room } from './room.entity';
 import { RoomService } from './room.service';
 import { CreateRoomInput } from './dto/create.room';
 import { UpdateRoomInput } from './dto/update.room';
+import { Stall } from 'src/stall/stall.entity';
 
 @Resolver(() => Room)
 export class RoomResolver {
   constructor(private readonly roomService: RoomService) {}
+
+  @ResolveField(() => Stall, { nullable: true })
+  async stall(@Parent() room: Room): Promise<Stall | null> {
+    return room.stall || null;
+  }
 
   @Query(() => [Room], { name: 'rooms' })
   async findAllRooms(): Promise<Room[]> {

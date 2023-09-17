@@ -2,8 +2,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
@@ -21,15 +21,19 @@ export class Stall {
   @Field()
   stallNumber: string;
 
-  // @ManyToOne(() => Company, (company) => company.stalls)
-  // @Field(() => Company)
-  // company: Company;
-
-  // @OneToOne(() => Room)
-  // @JoinColumn()
-  // room: Room;
+  @OneToOne((type) => Room, (room: Room) => room.id)
+  room: Room;
 
   @Column()
   @Field({ nullable: true })
   floorPlanLocation?: string;
+
+  @ManyToOne((type) => Company, (company: Company) => company.id, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+    nullable: true,
+  })
+  @JoinColumn({ name: 'companyId', referencedColumnName: 'id' })
+  @Field(() => Company, { nullable: true })
+  company?: Company;
 }

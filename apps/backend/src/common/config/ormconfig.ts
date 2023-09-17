@@ -1,12 +1,15 @@
+import { Company } from 'src/company/company.entity';
 import { Interview } from 'src/interview/interview.entity';
 import { Role } from 'src/roles/role.entity';
+import { Room } from 'src/room/room.entity';
+import { Stall } from 'src/stall/stall.entity';
 import { Student } from 'src/student/student.entity';
 import { User } from 'src/users/user.entity';
 import { DataSourceOptions } from 'typeorm';
 
 export function getDbConfig(db: string): DataSourceOptions {
   const dbType = db || process.env.DB || 'postgres';
-  const entities = [User, Role, Student, Interview];
+  const entities = [User, Role, Student, Interview, Room, Stall, Company];
 
   const commonConfig: DataSourceOptions = {
     synchronize: false,

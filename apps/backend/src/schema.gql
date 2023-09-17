@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Company {
+  email: String!
+  id: ID!
+  name: String
+  password: String!
+  role: Role
+  username: String!
+}
+
+input CreateCompanyInput {
+  email: String
+  name: String
+  password: String
+  roleId: String
+  username: String
+}
+
 input CreateInterviewInput {
   interviewDate: DateTime!
   interviewTime: String!
@@ -11,6 +28,21 @@ input CreateInterviewInput {
 input CreateRoleInput {
   division: String
   name: String!
+}
+
+input CreateRoomInput {
+  currentStudent: String
+  interestedStudentIds: [ID!]
+  roomNumber: String!
+  roomStatus: String!
+  stallId: ID!
+}
+
+input CreateStallInput {
+  companyId: ID!
+  floorPlanLocation: String
+  roomId: ID!
+  stallNumber: String!
 }
 
 input CreateStudentInput {
@@ -38,32 +70,48 @@ type Interview {
   id: ID!
   interviewDate: DateTime!
   interviewTime: String!
+  room: Room
   status: String
   students: Student
 }
 
 type Mutation {
+  createCompany(input: CreateCompanyInput!): Company!
   createInterview(input: CreateInterviewInput!): Interview!
   createRole(input: CreateRoleInput!): Role!
+  createRoom(input: CreateRoomInput!): Room!
+  createStall(input: CreateStallInput!): Stall!
   createStudent(input: CreateStudentInput!): Student!
   createUser(input: CreateUserInput!): User!
+  deleteCompany(id: ID!): Company!
   deleteInterview(id: ID!): Interview!
   deleteRole(id: String!): Role!
+  deleteRoom(id: ID!): Room!
+  deleteStall(id: ID!): Stall!
   deleteStudent(id: ID!): Student!
   deleteUser(id: String!): User!
   softDeleteRole(id: String!): Role!
+  updateCompany(id: ID!, input: UpdateCompanyInput!): Company!
   updateInterview(id: ID!, input: UpdateInterviewInput!): Interview!
   updateRole(id: String!, input: UpdateRoleInput!): Role!
+  updateRoom(id: ID!, input: UpdateRoomInput!): Room!
+  updateStall(id: ID!, input: UpdateStallInput!): Stall!
   updateStudent(id: ID!, input: UpdateStudentInput!): Student!
   updateUser(id: String!, input: UpdateUserInput!): User!
 }
 
 type Query {
+  companies: [Company!]!
+  company(id: ID!): Company!
   interview(id: ID!): Interview!
   interviews: [Interview!]!
   roleById(id: String!): Role!
   roleByRoleName(roleName: String!): Role!
   roles: [Role!]!
+  room(id: ID!): Room!
+  rooms: [Room!]!
+  stall(id: ID!): Stall!
+  stalls: [Stall!]!
   student(id: ID!): Student!
   students: [Student!]!
   user(id: String!): User!
@@ -77,6 +125,21 @@ type Role {
   name: String!
 }
 
+type Room {
+  currentStudent: String
+  id: ID!
+  roomNumber: String!
+  roomStatus: String!
+  stall: Stall
+}
+
+type Stall {
+  company: Company
+  floorPlanLocation: String
+  id: ID!
+  stallNumber: String!
+}
+
 type Student {
   email: String!
   id: ID!
@@ -84,6 +147,14 @@ type Student {
   password: String!
   role: Role
   username: String!
+}
+
+input UpdateCompanyInput {
+  email: String
+  name: String
+  password: String
+  roleId: String
+  username: String
 }
 
 input UpdateInterviewInput {
@@ -95,6 +166,23 @@ input UpdateInterviewInput {
 input UpdateRoleInput {
   division: String
   name: String!
+}
+
+input UpdateRoomInput {
+  currentStudent: String
+  id: ID!
+  interestedStudentIds: [ID!]
+  roomNumber: String
+  roomStatus: String
+  stallId: ID
+}
+
+input UpdateStallInput {
+  companyId: ID
+  floorPlanLocation: String
+  id: ID!
+  roomId: ID
+  stallNumber: String
 }
 
 input UpdateStudentInput {
