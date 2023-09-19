@@ -7,9 +7,11 @@ export default function FloorPlan() {
 
   return (
     <div>
-      This is the floor plan section
+      <h3 className={styles['subheading']}>Floor Plan</h3>
       <div className={styles.floorPlanImageContainer}>
-        <Image src='dummy_image_1.webp' />
+        <div className={styles.floorPlanImage}>
+          <Image src='dummy_image_1.webp' />
+        </div>
       </div>
     </div>
   )

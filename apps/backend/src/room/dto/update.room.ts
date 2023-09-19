@@ -2,9 +2,6 @@ import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateRoomInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   roomNumber?: string;
 

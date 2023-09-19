@@ -10,8 +10,9 @@
   max-width: 900px;
 }
 
-.appName {
+.app-name {
   color: var(--blue8);
+  text-align: center;
 }
 
 .hero {
@@ -42,7 +43,35 @@
 }
 
 .floorPlanImageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.card-img {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 0.25rem;
+  border: 1px solid var(--neutral-light);
+  border-radius: 0.5rem;
+}
+
+.card-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.floorPlanImage {
   object-fit: contain;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  /* width: 860px; */
 }
 
 .imageContainer {
@@ -50,11 +79,51 @@
   overflow: hidden;
 }
 
-.queryContainer {
-  width: 300px;
+.card {
+  padding: 1rem;
+  background-color: var(--gray0);
+  border-radius: 0.5rem;
+  /* width: 280px; */
+  border: 1px solid var(--neutral-light);
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-meta {
+  align-self: center;
+}
+
+.room-status {
+  color: var(--neutral-dark);
+}
+
+.accentGreen {
+  background-color: var(--accent-green);
+}
+
+.accentRed {
+  background-color: var(--accent-red);
+}
+
+.subheading {
+  color: var(--neutral-dark);
+  text-align: center;
+}
+
+.card-id {
+  font-size: small;
+  color: var(--neutral-dark);
+}
+
+.queryContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .stallInfo {
@@ -81,7 +150,7 @@
 
 .roomVacantStatus {
   display: flex;
-  width: 8rem;
+  justify-content: flex-end;
 }
 
 .roomVacantStatus h4 {
@@ -89,10 +158,24 @@
   line-height: 1.2rem;
 }
 
-.roomStatusIndicator {
-  background-color: var(--dark7);
+.roomStatusVacant {
+  background-color: var(--accent-green);
   min-width: 10px;
   max-width: 20px;
+  border-radius: 0.25rem;
+}
+
+.app-name-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.roomStatusOccupied {
+  background-color: var(--accent-red);
+  min-width: 10px;
+  max-width: 20px;
+  border-radius: 0.25rem;
 }
 
 /* Enable hover only on non-touch devices */

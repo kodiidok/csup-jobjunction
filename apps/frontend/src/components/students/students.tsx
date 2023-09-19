@@ -17,9 +17,11 @@ export default function Students() {
   return (
     <div className={styles.queryContainer}>
       {data.students?.map((student: any) => (
-        <div key={student.id}>
-          <h2>{student.studentName}</h2>
-          <p>{student.studentId}</p>
+        <div className={styles['card']} key={student.id}>
+          {/* {JSON.stringify(student)} */}
+          <h3>{student.name.charAt(0).toUpperCase() + student.name.slice(1)}</h3>
+          <p>{student.email}</p>
+          <p className={styles['card-id']}>{student.id}</p>
         </div>
       ))}
     </div>

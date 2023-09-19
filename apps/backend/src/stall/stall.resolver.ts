@@ -1,17 +1,37 @@
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { Stall } from './stall.entity';
 import { StallService } from './stall.service';
 import { CreateStallInput } from './dto/create.stall';
 import { UpdateStallInput } from './dto/update.stall';
+import { CompanyService } from 'src/company/company.service';
+import { Company } from 'src/company/company.entity';
 
 @Resolver(() => Stall)
 export class StallResolver {
-  constructor(private readonly stallService: StallService) {}
+  constructor(
+    private readonly stallService: StallService,
+    private readonly compamyService: CompanyService,
+  ) {}
+
+  @ResolveField(() => Company, { nullable: true })
+  async company(@Parent() stall: Stall): Promise<Company | null> {
+    return stall.company || null;
+  }
 
   @Query(() => [Stall], { name: 'stalls' })
   async findAllStalls(): Promise<Stall[]> {
     try {
-      return await this.stallService.findAllStalls();
+      const stalls = await this.stallService.findAllStalls();
+      const stallsWithCompanies: Stall[] = [];
+      await Promise.all(
+        stalls.map(async (stall) => {
+          if (stall.companyId) {
+            stall.company = await this.compamyService.findCompanyById(stall.companyId);
+          }
+          stallsWithCompanies.push(stall);
+        }),
+      );
+      return stallsWithCompanies;
     } catch (error) {
       throw new Error(`Error fetching stalls: ${error.message}`);
     }
@@ -22,7 +42,9 @@ export class StallResolver {
     @Args('id', { type: () => ID }) id: string,
   ): Promise<Stall> {
     try {
-      return await this.stallService.findStallById(id);
+      const stall = await this.stallService.findStallById(id);
+      stall.company = await this.compamyService.findCompanyById(stall.companyId);
+      return stall;
     } catch (error) {
       throw new Error(`Error fetching stall by ID: ${error.message}`);
     }

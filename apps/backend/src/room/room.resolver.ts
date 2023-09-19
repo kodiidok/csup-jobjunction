@@ -12,20 +12,43 @@ import { RoomService } from './room.service';
 import { CreateRoomInput } from './dto/create.room';
 import { UpdateRoomInput } from './dto/update.room';
 import { Stall } from 'src/stall/stall.entity';
+import { StallService } from 'src/stall/stall.service';
+import { Company } from 'src/company/company.entity';
+import { CompanyService } from 'src/company/company.service';
 
 @Resolver(() => Room)
 export class RoomResolver {
-  constructor(private readonly roomService: RoomService) {}
+  constructor(
+    private readonly roomService: RoomService,
+    private readonly stallService: StallService,
+    private readonly companyService: CompanyService,
+  ) {}
 
   @ResolveField(() => Stall, { nullable: true })
   async stall(@Parent() room: Room): Promise<Stall | null> {
     return room.stall || null;
   }
 
+  @ResolveField(() => Company, { nullable: true })
+  async company(@Parent() stall: Stall): Promise<Company | null> {
+    return stall.company || null;
+  }
+
   @Query(() => [Room], { name: 'rooms' })
   async findAllRooms(): Promise<Room[]> {
     try {
-      return await this.roomService.findAllRooms();
+      const rooms = await this.roomService.findAllRooms();
+      const roomsWithStalls: Room[] = [];
+      await Promise.all(
+        rooms.map(async (room) => {
+          if (room.stallId) {
+            room.stall = await this.stallService.findStallById(room.stallId);
+            room.stall.company = await this.companyService.findCompanyById(room.stall.companyId);
+          }
+          roomsWithStalls.push(room);
+        }),
+      );
+      return roomsWithStalls;
     } catch (error) {
       throw new Error(`Error fetching rooms: ${error.message}`);
     }
@@ -36,7 +59,10 @@ export class RoomResolver {
     @Args('id', { type: () => ID }) id: string,
   ): Promise<Room> {
     try {
-      return await this.roomService.findRoomById(id);
+      const room = await this.roomService.findRoomById(id);
+      room.stall = await this.stallService.findStallById(room.stallId);
+      room.stall.company = await this.companyService.findCompanyById(room.stall.companyId);
+      return room;
     } catch (error) {
       throw new Error(`Error fetching room by ID: ${error.message}`);
     }

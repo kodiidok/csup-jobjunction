@@ -128,6 +128,7 @@ type Role {
 }
 
 type Room {
+  company: Company
   currentStudent: String
   id: ID!
   roomNumber: String!
@@ -174,7 +175,6 @@ input UpdateRoleInput {
 
 input UpdateRoomInput {
   currentStudent: String
-  id: ID!
   interestedStudentIds: [ID!]
   roomNumber: String
   roomStatus: String

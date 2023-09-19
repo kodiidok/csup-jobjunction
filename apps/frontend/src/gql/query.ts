@@ -1,34 +1,18 @@
 import { gql } from "@apollo/client";
 
-export const USERS_QUERY = gql`
+export const COMPANIES_QUERY = gql`
   {
-    users {
+    companies {
       email
       id
       name
       password
-      username
-    }
-  }
-`;
-
-export const COMPANIES_QUERY = gql`
-  {
-    companies {
-      companyName
-      id
-      stalls {
-        floorPlanLocation
-        id
-        stallNumber
-      }
-      user {
-        email
+      role {
+        division
         id
         name
-        password
-        username
       }
+      username
     }
   }
 `;
@@ -36,23 +20,86 @@ export const COMPANIES_QUERY = gql`
 export const STUDENTS_QUERY = gql`
   {
     students {
+      email
       id
-      interestedRooms {
+      name
+      password
+      role {
+        division
         id
+        name
       }
-      interviews {
-        id
-      }
-      studentEmail
       studentId
-      studentName
-      user {
+      username
+    }
+  }
+`;
+
+export const INTERVIEWS_QUERY = gql`
+  {
+    interviews {
+      id
+      interviewDate
+      interviewTime
+      room {
+        currentStudent
+        id
+        roomNumber
+        roomStatus
+        stall {
+          company {
+            email
+            id
+            name
+          }
+          floorPlanLocation
+          id
+          stallNumber
+        }
+      }
+      status
+      students {
         email
         id
         name
-        password
-        username
+        studentId
       }
+    }
+  }
+`;
+
+export const ROOMS_QUERY = gql`
+  {
+    rooms {
+      currentStudent
+      id
+      roomNumber
+      roomStatus
+      stall {
+        company {
+          id
+          email
+          name
+        }
+        floorPlanLocation
+        id
+        stallNumber
+      }
+    }
+  }
+`;
+
+export const STALLS_QUERY = gql`
+  {
+    stalls {
+      company {
+        email
+        id
+        name
+      }
+      floorPlanLocation
+      id
+      stallNumber
     }
   }
 `;

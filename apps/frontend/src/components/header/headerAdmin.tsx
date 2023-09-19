@@ -2,7 +2,7 @@
 
 import styles from '@/app/page.module.css'
 import { Image } from '@mantine/core'
-import { APP_NAME, FACULTY_NAME, UNIVERSITY_NAME } from '@/util/resourceNames'
+import { ADMIN_APP_NAME, FACULTY_NAME, UNIVERSITY_NAME } from '@/util/resourceNames'
 
 export default function Header() {
 
@@ -15,9 +15,10 @@ export default function Header() {
           <h6>{UNIVERSITY_NAME}</h6>
         </div>
       </div>
-      <div>
+      <div className={styles['app-name-container']}>
         {/* add user profile info */}
-        <h1 className={styles['app-name']}>{APP_NAME}</h1>
+        <h1 className={styles['app-name']}>{ADMIN_APP_NAME}</h1>
+
       </div>
     </div>
   )
