@@ -39,7 +39,8 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
 }
 
 .facultyHeader {
@@ -123,6 +124,27 @@
   text-align: left;
 }
 
+.app-description {
+  font-weight: bold;
+  color: var(--tertiary);
+  text-align: center;
+  width: 80%;
+}
+
+.app-info-container {
+  margin-top: 3rem;
+  border: 3px solid var(--blue8);
+  background-color: var(--accent-blue-trans);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  min-height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .subheadin-row {
   display: flex;
   justify-content: space-between;
@@ -130,7 +152,7 @@
 }
 
 .floorplan {
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .card-id {

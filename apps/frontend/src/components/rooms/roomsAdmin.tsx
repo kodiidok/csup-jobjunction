@@ -49,7 +49,6 @@ export default function Rooms() {
     <div>
       <div className={styles['subheadin-row']}>
         <h2 className={styles['subheading']}>Interviews</h2>
-        <Button>Save</Button>
       </div>
       <div className={styles.queryContainer}>
         {data.rooms?.map((room: any, index: number) => (

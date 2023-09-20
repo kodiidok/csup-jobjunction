@@ -15,10 +15,6 @@ export default function Header() {
           <h6>{UNIVERSITY_NAME}</h6>
         </div>
       </div>
-      <div>
-        {/* add user profile info */}
-        <h1 className={styles['app-name']}>{APP_NAME}</h1>
-      </div>
     </div>
   )
 }
