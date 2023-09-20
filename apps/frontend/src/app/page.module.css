@@ -86,6 +86,11 @@
   overflow: hidden;
 }
 
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card {
   padding: 1rem;
   background-color: var(--gray0);
@@ -100,7 +105,7 @@
 
 .card:hover {
   background-color: var(--accent-blue-trans);
-  border: 3px solid var(--accent-blue);
+  border: 1px solid var(--accent-blue);
 }
 
 .card-info {
@@ -169,6 +174,30 @@
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+}
+
+.filter-btn-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer {
+  color: var(--gray0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tertiary);
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stallInfo {

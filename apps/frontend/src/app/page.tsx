@@ -6,20 +6,8 @@ import FloorPlan from '@/components/floorPlan/floorPlan'
 import Header from '@/components/header/header'
 import Rooms from '@/components/rooms/rooms'
 import { APP_DESCRIPTION, APP_NAME } from '@/util/resourceNames'
-import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Retrieve the selected companies from session storage
-    const storedSelectedCompanies = sessionStorage.getItem('companies');
-    if (storedSelectedCompanies) {
-      // Parse the stored string as JSON to get an array
-      const selected = JSON.parse(storedSelectedCompanies);
-      setSelectedCompanies(selected);
-    }
-  }, [selectedCompanies]);
 
   return (
     <>
@@ -32,10 +20,24 @@ export default function Home() {
           </div>
           <FloorPlan />
           <Tags />
-          <div>{selectedCompanies}</div>
-          <Rooms selectedCompanies={selectedCompanies} />
+          <Rooms />
         </div>
       </main>
+      <div className={styles['footer']}>
+        <div className={styles['footer-item']}>
+          <h3>Address</h3>
+          <p>Science Industry Interaction Cell, Faculty of Science, University of Peradeniya.</p>
+        </div>
+        <div className={styles['footer-item']}>
+          <h3>Email</h3>
+          <p>siic@pdn.ac.lk / info.siic@sci.pdn.ac.lk</p>
+        </div>
+        <div className={styles['footer-item']}>
+          <h3>Phone</h3>
+          <p>(+94) 81 238 9152</p>
+          <p>(+94) 81 239 4412</p>
+        </div>
+      </div>
     </>
   )
 }
