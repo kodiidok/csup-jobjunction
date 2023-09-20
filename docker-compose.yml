@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./apps/backend # Path to your Nest.js backend app
+    ports:
+      - '3333:3333' # Expose the backend app on port 3000
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./apps/frontend # Path to your Next.js frontend app
+    ports:
+      - '3000:3000' # Expose the frontend app on port 8080
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432' # Expose PostgreSQL on port 5432
+    environment:
+      POSTGRES_DB: jobjunction
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: vf0E86rXyt83

@@ -5,7 +5,11 @@ import { ROOMS_QUERY } from '@/gql/query';
 import { logo } from '@/util/resourceImages';
 import { Image } from '@mantine/core';
 
-export default function Rooms() {
+export interface RoomsProps {
+  selectedCompanies: string[];
+}
+
+export default function Rooms({ selectedCompanies }: RoomsProps) {
   const { loading, error, data } = useQuery(ROOMS_QUERY, { client });
 
   if (loading) {

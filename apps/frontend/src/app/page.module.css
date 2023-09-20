@@ -98,6 +98,11 @@
   width: 100%;
 }
 
+.card:hover {
+  background-color: var(--accent-blue-trans);
+  border: 3px solid var(--accent-blue);
+}
+
 .card-info {
   display: flex;
   justify-content: space-between;
@@ -216,6 +221,30 @@
   min-width: 10px;
   max-width: 20px;
   border-radius: 0.25rem;
+}
+
+.tag {
+  background-color: var(--neutral-mid);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.tag:hover {
+  background-color: var(--neutral-light);
+}
+
+.tag-active {
+  background-color: var(--accent-blue);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  color: var(--neutral-mid);
+}
+
+.tag-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Enable hover only on non-touch devices */

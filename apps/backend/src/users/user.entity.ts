@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Role } from 'src/roles/role.entity';
 import {
+  BeforeInsert,
   Column,
   Entity,
   JoinColumn,
@@ -8,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 @ObjectType()
@@ -27,6 +29,10 @@ export class User {
   @Column()
   @Field()
   password: string;
+
+  // @BeforeInsert() async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
 
   @Column({ nullable: true })
   @Field({ nullable: true })

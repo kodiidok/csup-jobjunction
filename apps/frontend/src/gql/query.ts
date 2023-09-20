@@ -17,6 +17,16 @@ export const COMPANIES_QUERY = gql`
   }
 `;
 
+export const COMPANIES_BY_NAME_QUERY = gql`
+  query GetCompaniesByName($name: string) {
+    companies(name: $name) {
+      email
+      id
+      name
+    }
+  }
+`;
+
 export const STUDENTS_QUERY = gql`
   {
     students {
@@ -100,6 +110,23 @@ export const STALLS_QUERY = gql`
       floorPlanLocation
       id
       stallNumber
+    }
+  }
+`;
+
+export const USERS_QUERY = gql`
+  {
+    users {
+      email
+      id
+      name
+      password
+      role {
+        division
+        id
+        name
+      }
+      username
     }
   }
 `;

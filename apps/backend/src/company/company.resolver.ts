@@ -17,6 +17,17 @@ export class CompanyResolver {
     }
   }
 
+  @Query(() => [Company], { name: 'companiesByName' })
+  async findCompaniesByName(
+    @Args('name') name: string,
+  ): Promise<Company[]> {
+    try {
+      return await this.companyService.findCompaniesByName(name);
+    } catch (error) {
+      throw new Error(`Error fetching companies: ${error.message}`);
+    }
+  }
+
   @Query(() => Company, { name: 'company' })
   async findCompanyById(
     @Args('id', { type: () => ID }) id: string,

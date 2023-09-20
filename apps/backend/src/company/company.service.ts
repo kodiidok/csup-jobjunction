@@ -22,9 +22,18 @@ export class CompanyService {
     return await this.companyRepository.find();
   }
 
+  async findCompaniesByName(name: string): Promise<Company[]> {
+    return await this.companyRepository.find({ where: { name } });
+  }
+
   async findCompanyById(id: string): Promise<Company> {
     return await this.companyRepository.findOne({ where: { id } });
   }
+
+  async findCompanyByName(name: string): Promise<Company> {
+    return await this.companyRepository.findOne({ where: { name } });
+  }
+
 
   async updateCompany(id: string, input: Partial<Company>): Promise<Company> {
     await this.companyRepository.update(id, input);

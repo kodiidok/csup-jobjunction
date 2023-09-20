@@ -104,6 +104,7 @@ type Mutation {
 
 type Query {
   companies: [Company!]!
+  companiesByName(name: String!): [Company!]!
   company(id: ID!): Company!
   interview(id: ID!): Interview!
   interviews: [Interview!]!
