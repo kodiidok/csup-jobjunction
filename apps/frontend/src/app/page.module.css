@@ -7,7 +7,13 @@
 }
 
 .container {
+  /* max-width: 1200px; */
+  /* width: 100%; */
+  /* width: 900px; */
   max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .app-name {
@@ -88,6 +94,7 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .card-info {
@@ -113,7 +120,17 @@
 
 .subheading {
   color: var(--neutral-dark);
-  text-align: center;
+  text-align: left;
+}
+
+.subheadin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.floorplan {
+  margin-top: 3rem;
 }
 
 .card-id {
@@ -124,6 +141,7 @@
 .queryContainer {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .stallInfo {

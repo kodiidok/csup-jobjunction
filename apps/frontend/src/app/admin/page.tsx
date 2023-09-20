@@ -15,7 +15,7 @@ export default function Home() {
       <Header />
       <main className={styles.main}>
         <div className={styles.container}>
-          <h1 className={styles['app-name']}>{APP_NAME}</h1>
+          {/* <h1 className={styles['app-name']}>{APP_NAME}</h1> */}
           <FloorPlan />
           <Rooms />
         </div>

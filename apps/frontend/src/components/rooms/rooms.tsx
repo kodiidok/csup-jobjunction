@@ -78,7 +78,6 @@ export default function Rooms() {
       ))}
     </div>
   );
-
 }
 
 // if the roomStatus is 'vacant', the background color of 'roomStatusIndicator' should be --accent-green, else, --accent-red
