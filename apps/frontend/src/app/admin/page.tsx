@@ -1,7 +1,9 @@
 'use client'
 
 import styles from '@/app/page.module.css'
+import Tags from '@/components/filters/tags'
 import FloorPlan from '@/components/floorPlan/floorPlan'
+import Footer from '@/components/footer/footer'
 import Header from '@/components/header/headerAdmin'
 import Rooms from '@/components/rooms/roomsAdmin'
 import { ADMIN_APP_DESCRIPTION, ADMIN_APP_NAME } from '@/util/resourceNames'
@@ -18,9 +20,11 @@ export default function Home() {
             <div className={styles['app-description']}>{ADMIN_APP_DESCRIPTION}</div>
           </div>
           <FloorPlan />
+          <Tags />
           <Rooms />
         </div>
       </main>
+      <Footer />
     </>
   )
 }
