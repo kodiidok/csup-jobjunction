@@ -68,13 +68,18 @@ export default function Rooms() {
     }
   }
 
+  const resetFilter = () => {
+    sessionStorage.setItem('companies', '');
+    setFilteredRooms(rooms);
+  }
+
   return (
     <div>
       <div className={styles['filter']}>
         <h2 className={styles['subheading']}>Interviews</h2>
         <div className={styles['filter-btn-container']}>
           <Button color='cyan' onClick={filterRooms}>Filter Rooms</Button>
-          <Button color='orange' onClick={filterRooms}>Reset</Button>
+          <Button color='orange' onClick={resetFilter}>Reset</Button>
         </div>
       </div>
       <div className={styles.queryContainer}>
