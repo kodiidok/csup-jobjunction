@@ -15,19 +15,28 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export const UPDATE_ROOM_STATUS_MUTATION = gql`
-  mutation UpdateRoom(
-    $id: ID!,
-    $input: UpdateRoomInput!
-  ) {
-    updateRoom(
-      id: $id,
-      input: $input
-    ) {
+export const UPDATE_ROOM_MUTATION = gql`
+  mutation UpdateRoom($id: ID!, $input: UpdateRoomInput!) {
+    updateRoom(id: $id, input: $input) {
+      completedInterviews {
+        id
+      }
       currentStudent
       id
+      interviews {
+        id
+      }
       roomNumber
       roomStatus
+      stall {
+        company {
+          id
+          name
+        }
+        floorPlanLocation
+        id
+        stallNumber
+      }
     }
   }
 `;

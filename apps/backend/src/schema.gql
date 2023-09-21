@@ -32,22 +32,23 @@ input CreateRoleInput {
 }
 
 input CreateRoomInput {
-  currentStudent: String
-  interestedStudentIds: [ID!]
-  roomNumber: String!
-  roomStatus: String!
-  stallId: ID!
+  completedInterviewIds: [ID!]
+  floor: String
+  interviewIds: [ID!]
+  roomName: String!
+  roomNumber: String
+  roomStatus: String
+  stallId: ID
 }
 
 input CreateStallInput {
   companyId: ID!
-  floorPlanLocation: String
   roomId: ID
-  stallNumber: String!
 }
 
 input CreateStudentInput {
   email: String
+  interviewIds: [ID!]
   name: String
   password: String
   roleId: String
@@ -123,26 +124,25 @@ type Query {
 }
 
 type Role {
-  division: String
   id: ID!
   name: String!
 }
 
 type Room {
   completedInterviews: [Interview!]
-  currentStudent: String
+  floor: String
   id: ID!
   interviews: [Interview!]
-  roomNumber: String!
-  roomStatus: String!
+  roomName: String
+  roomNumber: String
+  roomStatus: String
   stall: Stall
 }
 
 type Stall {
   company: Company
-  floorPlanLocation: String
   id: ID!
-  stallNumber: String!
+  room: Room
 }
 
 type Student {
@@ -176,8 +176,10 @@ input UpdateRoleInput {
 }
 
 input UpdateRoomInput {
-  currentStudent: String
-  interestedStudentIds: [ID!]
+  completedInterviewIds: [ID!]
+  floor: String
+  interviewIds: [ID!]
+  roomName: String
   roomNumber: String
   roomStatus: String
   stallId: ID
@@ -185,14 +187,12 @@ input UpdateRoomInput {
 
 input UpdateStallInput {
   companyId: ID
-  floorPlanLocation: String
-  id: ID!
   roomId: ID
-  stallNumber: String
 }
 
 input UpdateStudentInput {
   email: String
+  interviewIds: [ID!]
   name: String
   password: String
   roleId: String

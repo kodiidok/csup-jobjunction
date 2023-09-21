@@ -76,7 +76,7 @@ export default function Rooms() {
   }
 
   const handleSave = () => {
-
+    
   }
   
   return (
@@ -86,12 +86,11 @@ export default function Rooms() {
         <div className={styles['filter-btn-container']}>
           <Button color='cyan' onClick={filterRooms}>Filter Rooms</Button>
           <Button color='orange' onClick={resetFilter}>Reset</Button>
-          <Button onClick={handleSave}>Save</Button>
         </div>
       </div>
       <div className={styles.queryContainer}>
         {filteredRooms?.map((room: any, index: number) => (
-          <Room key={index} index={index} logo={logoSwitcher(room.stall.company.name)} room={room} />
+          <Room key={index} index={index} logo={logoSwitcher(room.stall.company.name) || ''} room={room} />
         ))}
       </div>
     </div>

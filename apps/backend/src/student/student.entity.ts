@@ -11,6 +11,9 @@ export class Student extends User {
   })
   interviews: Interview[];
 
+  @Column('simple-array', { nullable: true })
+  interviewIds?: string[];
+
   @Column()
   @Field()
   studentId: string;

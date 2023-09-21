@@ -19,4 +19,7 @@ export class UpdateStudentInput {
 
   @Field({nullable: true})
   studentId?: string;
+
+  @Field(() => [ID], { nullable: true })
+  interviewIds?: string[];
 }

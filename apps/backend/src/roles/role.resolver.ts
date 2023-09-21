@@ -62,7 +62,6 @@ export class RoleResolver {
       users.forEach(async (user) => {
         user.role = await this.getRoleById(user.roleId);
         user.role.name = input.name;
-        user.role.division = input.division;
         await this.userService.updateUser(id, user);
       });
       return await this.roleService.updateRole(id, input);

@@ -7,10 +7,10 @@ export default function FloorPlan() {
 
   return (
     <div className={styles['floorplan']}>
-      <h2 className={styles['subheading']}>Floor Plan</h2>
+      {/* <h2 className={styles['subheading']}>Floor Plan</h2> */}
       <div className={styles.floorPlanImageContainer}>
         <div className={styles.floorPlanImage}>
-          <Image src='dummy_image_1.webp' />
+          <Image src='map.jpg' />
         </div>
       </div>
     </div>

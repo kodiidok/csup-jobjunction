@@ -72,6 +72,13 @@
   gap: 1rem;
 }
 
+.card-checkbox-chip {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .floorPlanImage {
   object-fit: contain;
   margin-top: 1rem;

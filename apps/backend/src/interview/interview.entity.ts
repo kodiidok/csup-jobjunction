@@ -42,6 +42,9 @@ export class Interview {
   @Field(() => [Student], { nullable: true })
   students?: Student[];
 
+  @Column('simple-array', { nullable: true })
+  studentIds: string[];
+
   @ManyToOne((type) => Room, (room: Room) => room.id, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',

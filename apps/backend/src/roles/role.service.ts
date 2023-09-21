@@ -23,10 +23,6 @@ export class RoleService {
     return await this.roleRepository.findOne({ where: { id } });
   }
 
-  async findRolesByDivision(division: string): Promise<Role[]> {
-    return await this.roleRepository.find({ where: { division } });
-  }
-
   async findRoleByRolename(name: string): Promise<Role> {
     return await this.roleRepository.findOne({ where: { name } });
   }

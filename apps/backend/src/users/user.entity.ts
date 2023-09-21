@@ -30,9 +30,9 @@ export class User {
   @Field()
   password: string;
 
-  // @BeforeInsert() async hashPassword() {
-  //   this.password = await bcrypt.hash(this.password, 10);
-  // }
+  @BeforeInsert() async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 
   @Column({ nullable: true })
   @Field({ nullable: true })

@@ -1,0 +1,122 @@
+# stalls
+
+mutation {
+createInterview(input: {
+roomId: "248e017a-3c00-4a8f-98de-d58cd23b3a38"
+}, studentIds: ["16efc64b-e27a-42d8-ad10-a88859f15cec", "d9f631fb-04fb-496f-b990-ed77759357a3"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "16527e02-51b3-40bc-9948-b963e30188a4"
+}, studentIds: ["fc8cd419-9d5f-4542-a486-3822312b2658", "21a20393-2314-40c1-99c8-236a3ce7e1df"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "53a79715-e541-47a8-8084-1ce31dcfaf50"
+}, studentIds: ["21a20393-2314-40c1-99c8-236a3ce7e1df", "ebf496c3-6679-4d0d-9d3c-1739412cbdbd"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "9e5d3d1a-2d90-4767-a5d8-df1327b3dad3"
+}, studentIds: ["fc8cd419-9d5f-4542-a486-3822312b2658", "d9f631fb-04fb-496f-b990-ed77759357a3"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "339a96f7-f73c-4113-82a1-3de4b9d446a8"
+}, studentIds: ["fbad2805-970c-46b3-972c-dc7d14f29780", "ebf496c3-6679-4d0d-9d3c-1739412cbdbd"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "f80e58c4-07a6-40af-8b70-02dce477c0fb"
+}, studentIds: ["657069e7-fdae-44e7-bd0c-6b90c000af7e", "d9f631fb-04fb-496f-b990-ed77759357a3"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "c75064ba-2a1f-4a5f-bd1c-4a254dd8269a"
+}, studentIds: ["657069e7-fdae-44e7-bd0c-6b90c000af7e", "16efc64b-e27a-42d8-ad10-a88859f15cec"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "c5a2b5e1-e1a9-4ae7-8d0a-3da2de4b9d78"
+}, studentIds: ["fc8cd419-9d5f-4542-a486-3822312b2658"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "07358631-ee88-4abf-8561-166de78b9b8b"
+}, studentIds: ["16efc64b-e27a-42d8-ad10-a88859f15cec"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "f26b4263-c883-4039-b82b-b46852ab6894"
+}, studentIds: ["ebf496c3-6679-4d0d-9d3c-1739412cbdbd"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "4d45a0ca-5a15-4317-9c7d-a4481a1fd248"
+}, studentIds: ["4cf75280-581a-4fc5-ab91-546853c0115a"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "ea24a0c5-e71a-461c-af93-6af1286ec56d"
+}, studentIds: ["657069e7-fdae-44e7-bd0c-6b90c000af7e"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "238f7b42-743f-4094-ae68-925c4385227d"
+}, studentIds: ["4fcfd148-9637-4d62-9741-5c335d5a5090"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "634025bd-50e1-4790-97bd-d7a50a8baab8"
+}, studentIds: ["657a5dc4-2e8b-46bf-804a-c13a6071c8d9"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "a2e7b0d9-0cbf-47ae-87bc-1fcdd5305393"
+}, studentIds: ["21a20393-2314-40c1-99c8-236a3ce7e1df"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "8d8aadfe-84f4-4362-8509-77c99cb47757"
+}, studentIds: ["fbad2805-970c-46b3-972c-dc7d14f29780"]) {
+  id
+}
+
+mutation {
+createInterview(input: {
+roomId: "ef0330b3-3130-4b03-bb85-56d306a7fa39"
+}, studentIds: ["d9f631fb-04fb-496f-b990-ed77759357a3"]) {
+  id
+}
+
+

@@ -1,0 +1,86 @@
+# rooms
+
+roomName: "SCS lab 4"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "3"
+
+roomName: "SCS LT 1"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "SCS LT 2"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "SIIC Conference room"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "G"
+
+roomName: "Physics lobby"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "Physics U25 room"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "Physics U27 room"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "Chemistry Auditorium"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "SEU 208"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "ELTU 209"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "ELTU 210"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "SEU conference room"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"
+
+roomName: "PGIS rooftop"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "3"
+
+roomName: "Geology"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "G"
+
+roomName: "Geology"
+roomNumber: "1"
+roomStatus: "vacant"
+floor: "1"
+
+roomName: "Geology"
+roomNumber: "2"
+roomStatus: "vacant"
+floor: "1"
+
+roomName: "SEU 203"
+roomNumber: ""
+roomStatus: "vacant"
+floor: "2"

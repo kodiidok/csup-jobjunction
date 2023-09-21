@@ -18,6 +18,10 @@ export default function Rooms() {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(filteredRooms);
+  }, [filteredRooms])
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -87,13 +91,13 @@ export default function Rooms() {
           <div className={styles['card']} key={room.id}>
             <div className={styles['card-info']}>
               <div style={{ display: 'flex', gap: '2rem' }}>
-                <div className={styles['card-img']}>
+                {/* <div className={styles['card-img']}>
                   <Image src={`company_logos/${logoSwitcher(room.stall.company.name)}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                </div>
+                </div> */}
                 <div className={styles['card-meta']}>
-                  <h4>{`Location: ${room.stall.floorPlanLocation.toUpperCase()}`}</h4>
-                  <h2>{`Room: ${room.roomNumber}`}</h2>
-                  <p className={styles['card-id']}>{room.stall.company.name}</p>
+                  <h2>{`${room.roomName.toUpperCase()}`}</h2>
+                  {room.roomNumber && <h4>{`Room: ${room.roomNumber}`}</h4>}
+                  <p className={styles['card-id-big']}>{room.stall.company.name}</p>
                 </div>
               </div>
               <div className={styles.roomVacantStatus}>

@@ -8,7 +8,6 @@ export const COMPANIES_QUERY = gql`
       name
       password
       role {
-        division
         id
         name
       }
@@ -35,7 +34,6 @@ export const STUDENTS_QUERY = gql`
       name
       password
       role {
-        division
         id
         name
       }
@@ -52,19 +50,18 @@ export const INTERVIEWS_QUERY = gql`
       interviewDate
       interviewTime
       room {
-        currentStudent
         id
+        roomName
         roomNumber
         roomStatus
+        floor
         stall {
           company {
             email
             id
             name
           }
-          floorPlanLocation
           id
-          stallNumber
         }
       }
       status
@@ -81,7 +78,6 @@ export const INTERVIEWS_QUERY = gql`
 export const ROOMS_QUERY = gql`
   {
     rooms {
-      currentStudent
       id
       interviews {
         id
@@ -105,17 +101,17 @@ export const ROOMS_QUERY = gql`
           name
         }
       }
+      roomName
       roomNumber
       roomStatus
+      floor
       stall {
         company {
           id
           email
           name
         }
-        floorPlanLocation
         id
-        stallNumber
       }
     }
   }
@@ -129,9 +125,7 @@ export const STALLS_QUERY = gql`
         id
         name
       }
-      floorPlanLocation
       id
-      stallNumber
     }
   }
 `;
@@ -144,7 +138,6 @@ export const USERS_QUERY = gql`
       name
       password
       role {
-        division
         id
         name
       }

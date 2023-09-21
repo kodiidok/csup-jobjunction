@@ -1,0 +1,90 @@
+# company
+
+email: "eyepax@gmail.com"
+name: "Eyepax IT"
+username: "eyepax"
+password: "eyepax"
+
+email: "sumathi@gmail.com"
+name: "Sumathi IT Holdings(mainframe)"
+username: "sumathi"
+password: "sumathi"
+
+email: "simcentrics@gmail.com"
+name: "SimCentrics Tectnologies"
+username: "simcentrics"
+password: "simcentrics"
+
+email: "codegen@gmail.com"
+name: "Codegen IT"
+username: "codegen"
+password: "codegen"
+
+email: "cbl@gmail.com"
+name: "CBL"
+username: "cbl"
+password: "cbl"
+
+email: "lankem@gmail.com"
+name: "Lankem"
+username: "lankem"
+password: "lankem"
+
+email: "unilever@gmail.com"
+name: "Unilever Sri Lanka"
+username: "unilever"
+password: "unilever"
+
+email: "kelun@gmail.com"
+name: "Kelun Lifesciences"
+username: "kelun"
+password: "kelun"
+
+email: "haycarb@gmail.com"
+name: "Haycarb"
+username: "haycarb"
+password: "haycarb"
+
+email: "h1dialog@gmail.com"
+name: "H 1 Dialog"
+username: "h1dialog"
+password: "h1dialog"
+
+email: "hemas@gmail.com"
+name: "Hemas consumer brands"
+username: "hemas"
+password: "hemas"
+
+email: "octave@gmail.com"
+name: "Octave-John keels Holdings"
+username: "octave"
+password: "octave"
+
+email: "mas@gmail.com"
+name: "MAS Holdings"
+username: "mas"
+password: "mas"
+
+email: "penguin@gmail.com"
+name: "Penguin"
+username: "penguin"
+password: "penguin"
+
+# mutation {
+#   createCompany(input: {
+#     email: "penguin@gmail.com"
+#     name: "Penguin"
+#     username: "penguin"
+#     password: "penguin"
+#   }) {
+#     email
+#     id
+#     name
+#     password
+#     role {
+#       id
+#       name
+#     }
+#     username
+#   }
+# }

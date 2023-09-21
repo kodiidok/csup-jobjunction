@@ -18,21 +18,18 @@ export class Stall {
   @Field(() => ID)
   id: string;
 
-  @Column()
-  @Field()
-  stallNumber: string;
-
-  @OneToOne((type) => Room, (room: Room) => room.id)
+  @OneToOne((type) => Room, (room: Room) => room.stall)
+  @JoinColumn({ name: 'roomId', referencedColumnName: 'id' })
+  @Field(() => Room, { nullable: true })
   room: Room;
 
-  @Column()
-  @Field({ nullable: true })
-  floorPlanLocation?: string;
+  @Column({ nullable: true })
+  roomId?: string;
 
   @Column({ nullable: true })
   companyId?: string;
 
-  @ManyToOne((type) => Company, (company: Company) => company.id, {
+  @ManyToOne((type) => Company, (company: Company) => company.stalls, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
     nullable: true,

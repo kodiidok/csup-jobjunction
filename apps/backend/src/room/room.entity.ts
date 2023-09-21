@@ -18,17 +18,21 @@ export class Room {
   @Field(() => ID)
   id: string;
 
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  roomName: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   roomNumber: string;
 
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   roomStatus: string;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  currentStudent?: string;
+  floor: string;
 
   @OneToMany((type) => Interview, (interview: Interview) => interview.room)
   @Field(() => [Interview], { nullable: true })
@@ -44,7 +48,7 @@ export class Room {
   @Column('simple-array', { nullable: true })
   completedInterviewIds: string[];
 
-  @OneToOne((type) => Stall, (stall: Stall) => stall.id)
+  @OneToOne((type) => Stall, (stall: Stall) => stall.room)
   @JoinColumn({ name: 'stallId', referencedColumnName: 'id' })
   @Field(() => Stall, { nullable: true })
   stall: Stall;
