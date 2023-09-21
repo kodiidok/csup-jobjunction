@@ -14,13 +14,15 @@ export interface RoomProps {
 export default function Room({ room, logo, index }: RoomProps) {
   const [checked, setChecked] = useState(false);
   const [updateRoom] = useMutation(UPDATE_ROOM_STATUS_MUTATION, { client });
+  const [count,setCount] = useState(0);
+
+  // useEffect(() => {
+
+  // }, [room]);
 
   useEffect(() => {
     // Use room.roomStatus as a dependency
     setChecked(room.roomStatus === 'vacant');
-    console.log(room.id);
-    console.log(room.roomStatus);
-    console.log(checked);
   }, [room.roomStatus]);
 
   // if room.roomStatus === 'vacant' then set checked to true, else false
@@ -33,10 +35,6 @@ export default function Room({ room, logo, index }: RoomProps) {
 
     // Call the mutation with the new room status
     handleUpdateRoom(room.id, newStatus ? "vacant" : "occupied");
-
-    console.log(room.id);
-    console.log(room.roomStatus);
-    console.log(checked);
   };
 
   const handleUpdateRoom = (id: string, roomStatus: string) => {
@@ -58,6 +56,8 @@ export default function Room({ room, logo, index }: RoomProps) {
       });
   };
 
+
+
   return (
     <div id={`${room.id}`} className={styles['card']}>
       <div className={styles['card-info']}>
@@ -71,6 +71,9 @@ export default function Room({ room, logo, index }: RoomProps) {
             <p className={styles['card-id']}>{room.stall.company.name}</p>
             <p className={styles['card-id']}>{room.id}</p>
           </div>
+        </div>
+        <div>
+          count
         </div>
         <div className={styles['card-checkbox']}>
           <Chip

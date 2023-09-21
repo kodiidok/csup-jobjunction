@@ -48,11 +48,11 @@ export class InterviewService {
       interviews.map(async (interview) => {
         if (interview.roomId === roomId) {
           const room = await this.roomService.findRoomById(interview.roomId);
-          // const students = await this.studentService.findStudentsByInterviewId(
-          //   interview.id
-          // );
+          const students = await this.studentService.findStudentsByInterviewId(
+            interview.id
+          );
           interview.room = room;
-          // interview.students = students;
+          interview.students = students;
           interviewsInRoom.push(interview);
         }
       }),

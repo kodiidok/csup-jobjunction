@@ -132,6 +132,7 @@ type Room {
   currentStudent: String
   id: ID!
   interviews: [Interview!]
+  remainingInterviews: Float
   roomNumber: String!
   roomStatus: String!
   stall: Stall

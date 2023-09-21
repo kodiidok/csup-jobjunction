@@ -16,6 +16,7 @@ import { StallService } from 'src/stall/stall.service';
 import { Company } from 'src/company/company.entity';
 import { CompanyService } from 'src/company/company.service';
 import { InterviewService } from 'src/interview/interview.service';
+import { Interview } from 'src/interview/interview.entity';
 
 @Resolver(() => Room)
 export class RoomResolver {
@@ -45,16 +46,26 @@ export class RoomResolver {
         rooms.map(async (room) => {
           if (room.stallId) {
             room.stall = await this.stallService.findStallById(room.stallId);
-            room.stall.company = await this.companyService.findCompanyById(room.stall.companyId);
+            room.stall.company = await this.companyService.findCompanyById(
+              room.stall.companyId,
+            );
           }
           if (room.interviewIds) {
-            const roomInterviews = [];
-            room.interviewIds.map(async (interviewId) => {
-              interviewId = interviewId.replace(/[{}]/g, '');
-              const interview = await this.interviewService.findInterviewById(interviewId);
-              roomInterviews.push(interview);
-            });
-            room.interviews = roomInterviews;
+            room.interviewIds = room.interviewIds.map((interviewId) =>
+              interviewId.replace(/[{}]/g, ''),
+            );
+            // Use Promise.all to wait for all interviews to be fetched
+            const interviewPromises = room.interviewIds.map(
+              async (interviewId) => {
+                const interview = await this.interviewService.findInterviewById(
+                  interviewId,
+                );
+                return interview;
+              },
+            );
+            // Wait for all interviews to be fetched before assigning to room.interviews
+            room.interviews = await Promise.all(interviewPromises);
+            console.log(room);
           }
           roomsWithStalls.push(room);
         }),
@@ -73,7 +84,9 @@ export class RoomResolver {
     try {
       const room = await this.roomService.findRoomById(id);
       room.stall = await this.stallService.findStallById(room.stallId);
-      room.stall.company = await this.companyService.findCompanyById(room.stall.companyId);
+      room.stall.company = await this.companyService.findCompanyById(
+        room.stall.companyId,
+      );
       return room;
     } catch (error) {
       throw new Error(`Error fetching room by ID: ${error.message}`);
