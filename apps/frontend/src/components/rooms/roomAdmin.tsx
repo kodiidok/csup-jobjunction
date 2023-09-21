@@ -1,5 +1,5 @@
 import styles from '@/app/page.module.css';
-import { Chip, Image } from '@mantine/core';
+import { Button, Chip, Image } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { UPDATE_ROOM_STATUS_MUTATION } from '@/gql/mutation';
 import { useMutation } from '@apollo/client';
@@ -14,7 +14,7 @@ export interface RoomProps {
 export default function Room({ room, logo, index }: RoomProps) {
   const [checked, setChecked] = useState(false);
   const [updateRoom] = useMutation(UPDATE_ROOM_STATUS_MUTATION, { client });
-  const [count,setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   // useEffect(() => {
 
@@ -56,8 +56,6 @@ export default function Room({ room, logo, index }: RoomProps) {
       });
   };
 
-
-
   return (
     <div id={`${room.id}`} className={styles['card']}>
       <div className={styles['card-info']}>
@@ -75,26 +73,44 @@ export default function Room({ room, logo, index }: RoomProps) {
         <div>
           count
         </div>
-        <div className={styles['card-checkbox']}>
-          <Chip
-            id={`chip-vacant-${index}`}
-            color="green"
-            variant="filled"
-            checked={checked}
-            onChange={handleOnChange}
-          >
-            vacant
-          </Chip>
-          <Chip
-            id={`chip-occupied-${index}`}
-            color="red"
-            variant="filled"
-            checked={!checked}
-            onChange={handleOnChange}
-          >
-            occupied
-          </Chip>
+        <div>
+          {/* <Button>View</Button> */}
+          <div className={styles['card-checkbox']}>
+            <Chip
+              id={`chip-vacant-${index}`}
+              color="green"
+              variant="filled"
+              checked={checked}
+              onChange={handleOnChange}
+            >
+              vacant
+            </Chip>
+            <Chip
+              id={`chip-occupied-${index}`}
+              color="red"
+              variant="filled"
+              checked={!checked}
+              onChange={handleOnChange}
+            >
+              occupied
+            </Chip>
+          </div>
         </div>
+      </div>
+      <div style={{ marginTop: '0.5rem' }}>
+        {room.interviews.map((interview: any) => (
+          <div key={interview.id} className={styles['room-students']}>
+            {interview.students.map((student: any) => (
+              <div key={student.id} className={styles['room-student']}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <p className={styles['bold-text']}>{student.name}</p>
+                  <p className={styles['card-id']}>ID: {student.id}</p>
+                </div>
+                <p>{student.email}</p>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

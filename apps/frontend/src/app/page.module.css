@@ -161,6 +161,18 @@
   align-items: center;
 }
 
+.room-students {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.room-student {
+  background-color: var(--accent-blue-trans);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 .floorplan {
   margin-top: 1rem;
 }
@@ -168,6 +180,10 @@
 .card-id {
   font-size: small;
   color: var(--neutral-dark);
+}
+
+.bold-text {
+  font-weight: bold;
 }
 
 .queryContainer {

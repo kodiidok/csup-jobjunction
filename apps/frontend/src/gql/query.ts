@@ -83,6 +83,18 @@ export const ROOMS_QUERY = gql`
     rooms {
       currentStudent
       id
+      interviews {
+        id
+        interviewDate
+        interviewTime
+        status
+        students {
+          id
+          email
+          name
+        }
+      }
+      remainingInterviews
       roomNumber
       roomStatus
       stall {
