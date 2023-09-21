@@ -90,7 +90,7 @@ export default function Rooms() {
       </div>
       <div className={styles.queryContainer}>
         {filteredRooms?.map((room: any, index: number) => (
-          <Room key={index} index={index} logo={logoSwitcher(room.stall.company.name) || ''} room={room} />
+          <Room key={index} index={index} logo={logoSwitcher(room.stall.company.name) ?? ''} room={room} />
         ))}
       </div>
     </div>

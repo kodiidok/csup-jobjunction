@@ -1,0 +1,1 @@
+ psql -U postgres -d jobjunction2 -a -f backup2.sql

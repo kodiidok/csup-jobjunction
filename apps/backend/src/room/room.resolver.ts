@@ -63,9 +63,8 @@ export class RoomResolver {
                 return interview;
               },
             );
-            // Wait for all interviews to be fetched before assigning to room.interviews
-            room.interviews = await Promise.all(interviewPromises);
-            // console.log(room);
+              // Wait for all interviews to be fetched before assigning to room.interviews
+              room.interviews = await Promise.all(interviewPromises);
           }
           roomsWithStalls.push(room);
         }),
@@ -96,7 +95,28 @@ export class RoomResolver {
   @Mutation(() => Room, { name: 'createRoom' })
   async createRoom(@Args('input') input: CreateRoomInput): Promise<Room> {
     try {
-      return await this.roomService.createRoom(input);
+      const room = await this.roomService.createRoom(input);
+      room.stall = await this.stallService.findStallById(room.stallId);
+      room.stall.company = await this.companyService.findCompanyById(
+        room.stall.companyId,
+      );
+      if (room.interviewIds) {
+        room.interviewIds = room.interviewIds.map((interviewId) =>
+          interviewId.replace(/[{}]/g, ''),
+        );
+        // Use Promise.all to wait for all interviews to be fetched
+        const interviewPromises = room.interviewIds.map(
+          async (interviewId) => {
+            const interview = await this.interviewService.findInterviewById(
+              interviewId,
+            );
+            return interview;
+          },
+        );
+          // Wait for all interviews to be fetched before assigning to room.interviews
+          room.interviews = await Promise.all(interviewPromises);
+      }
+      return room;
     } catch (error) {
       throw new Error(`Error creating room: ${error.message}`);
     }
@@ -108,7 +128,28 @@ export class RoomResolver {
     @Args('input') input: UpdateRoomInput,
   ): Promise<Room> {
     try {
-      return await this.roomService.updateRoom(id, input);
+      const room = await this.roomService.updateRoom(id, input);
+      room.stall = await this.stallService.findStallById(room.stallId);
+      room.stall.company = await this.companyService.findCompanyById(
+        room.stall.companyId,
+      );
+      if (room.interviewIds) {
+        room.interviewIds = room.interviewIds.map((interviewId) =>
+          interviewId.replace(/[{}]/g, ''),
+        );
+        // Use Promise.all to wait for all interviews to be fetched
+        const interviewPromises = room.interviewIds.map(
+          async (interviewId) => {
+            const interview = await this.interviewService.findInterviewById(
+              interviewId,
+            );
+            return interview;
+          },
+        );
+          // Wait for all interviews to be fetched before assigning to room.interviews
+          room.interviews = await Promise.all(interviewPromises);
+      }
+      return room;
     } catch (error) {
       throw new Error(`Error updating room: ${error.message}`);
     }

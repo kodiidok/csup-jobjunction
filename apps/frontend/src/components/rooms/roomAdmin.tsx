@@ -40,10 +40,7 @@ export default function Room({ room, logo, index }: RoomProps) {
   }, [room.roomStatus]);
 
   useEffect(() => {
-    // console.log(completed);
-    // setCount(count-completed.length)
     setCount(remaining.length);
-    // handleUpdateRoomInterviews(room.id, completed, remaining);
   }, [completed, remaining]);
 
   // if room.roomStatus === 'vacant' then set checked to true, else false
@@ -58,13 +55,17 @@ export default function Room({ room, logo, index }: RoomProps) {
     handleUpdateRoom(room.id, newStatus ? "vacant" : "occupied");
   };
 
-  const handleUpdateRoomInterviews = (id: string, completed: string[], remainingInterviews: string[]) => {
+  const handleUpdateRoomInterviews = (id: string, completed: any[], remainingInterviews: any[]) => {
+    // const remainingInterviewsStudentIds = remainingInterviews.map(interview => interview.id);
+    const completedInterviewsStudentIds = completed.map(interview => interview.id);
+    // Convert the array to a string in the desired format
+    const resultString = `{${completedInterviewsStudentIds.join(', ')}, }`;
+    // console.log(remainingInterviewsStudentIds, completedInterviewsStudentIds, resultString);
     updateRoom({
       variables: {
         id: id,
         input: {
-          interviewIds: remainingInterviews,
-          completedInterviewIds: completed,
+          completedInterviewIds: resultString,
         },
       },
     })
@@ -108,21 +109,23 @@ export default function Room({ room, logo, index }: RoomProps) {
         const updatedRemaining = prevRemaining.filter((s) => s.id !== student.id);
 
         // Add the student to completed
-        setCompleted((prevCompleted) => [...prevCompleted, student.id]);
+        setCompleted((prevCompleted) => [...prevCompleted, student]);
 
         return updatedRemaining;
       } else {
         // Remove the student from completed
-        const updatedCompleted = completed.filter((id) => id !== student.id);
+        const updatedCompleted = completed.filter((s) => s.id !== student.id);
 
         // Add the student back to remaining
+        setCompleted(updatedCompleted);
+
         return [...prevRemaining, student];
       }
     });
   };
 
   const handleSave = () => {
-
+    handleUpdateRoomInterviews(room.id, completed, remaining);
   }
 
   return (
@@ -139,7 +142,6 @@ export default function Room({ room, logo, index }: RoomProps) {
             <h4>{`${room.roomName.toUpperCase()}`}</h4>
             {room.roomNumber && <h2>{`Room: ${room.roomNumber}`}</h2>}
             <p className={styles['card-id-big']}>{room.stall.company.name}</p>
-            {/* <p className={styles['card-id']}>{room.id}</p> */}
             <div className={styles['card-checkbox-chip']}>
               <Chip
                 id={`chip-vacant-${index}`}
@@ -169,26 +171,6 @@ export default function Room({ room, logo, index }: RoomProps) {
             </Button>
             <Button onClick={handleSave}>Save</Button>
           </div>
-          {/* <div className={styles['card-checkbox']}>
-            <Chip
-              id={`chip-vacant-${index}`}
-              color="green"
-              variant="filled"
-              checked={checked}
-              onChange={handleOnChange}
-            >
-              vacant
-            </Chip>
-            <Chip
-              id={`chip-occupied-${index}`}
-              color="red"
-              variant="filled"
-              checked={!checked}
-              onChange={handleOnChange}
-            >
-              occupied
-            </Chip>
-          </div> */}
         </div>
       </div>
       {
@@ -201,7 +183,7 @@ export default function Room({ room, logo, index }: RoomProps) {
                   <Checkbox onChange={(event) => { handleStudentSelection(student, event.target.checked) }} />
                   <p className={styles['bold-text']}>{student.name}</p>
                   <p>{student.email}</p>
-                  <p className={styles['card-id']}>{student.id}</p>
+                  {/* <p className={styles['card-id']}>{student.id}</p> */}
                 </div>
               ))}
             </div>

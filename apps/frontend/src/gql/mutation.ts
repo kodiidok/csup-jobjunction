@@ -20,12 +20,19 @@ export const UPDATE_ROOM_MUTATION = gql`
     updateRoom(id: $id, input: $input) {
       completedInterviews {
         id
+        students {
+          id
+        }
       }
-      currentStudent
+      floor
       id
       interviews {
         id
+        students {
+          id
+        }
       }
+      roomName
       roomNumber
       roomStatus
       stall {
@@ -33,9 +40,7 @@ export const UPDATE_ROOM_MUTATION = gql`
           id
           name
         }
-        floorPlanLocation
         id
-        stallNumber
       }
     }
   }

@@ -57,12 +57,23 @@ export class InterviewService {
         }
       }),
     );
-    console.log(interviewsInRoom);
     return interviewsInRoom;
+    // return interviews;
   }
 
   async findInterviewById(id: string): Promise<Interview> {
     const interview = await this.interviewRepository.findOne({ where: { id } });
+
+    if (!interview) {
+      // Handle the case where the interview is not found
+      throw new Error(`Interview with ID ${id} not found`);
+    }
+  
+    if (!interview.roomId) {
+      // Handle the case where the interview does not have a valid roomId
+      throw new Error(`Interview with ID ${id} has an invalid roomId`);
+    }
+
     const room = await this.roomService.findRoomById(interview.roomId);
     const students = await this.studentService.findStudentsByInterviewId(
       interview.id,
