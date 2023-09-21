@@ -30,8 +30,8 @@ export class Room {
   @Field({ nullable: true })
   currentStudent?: string;
 
-  @Column('int', {nullable: true})
-  @Field({nullable: true})
+  @Column('int', { nullable: true })
+  @Field({ nullable: true })
   remainingInterviews: number;
 
   @OneToMany((type) => Interview, (interview: Interview) => interview.room)
