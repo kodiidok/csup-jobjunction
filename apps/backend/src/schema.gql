@@ -129,10 +129,10 @@ type Role {
 }
 
 type Room {
+  completedInterviews: [Interview!]
   currentStudent: String
   id: ID!
   interviews: [Interview!]
-  remainingInterviews: Float
   roomNumber: String!
   roomStatus: String!
   stall: Stall

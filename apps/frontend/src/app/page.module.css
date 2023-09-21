@@ -171,6 +171,19 @@
   background-color: var(--accent-blue-trans);
   padding: 0.5rem;
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.room-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .floorplan {

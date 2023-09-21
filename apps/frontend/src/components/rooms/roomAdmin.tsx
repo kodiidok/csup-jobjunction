@@ -1,5 +1,7 @@
 import styles from '@/app/page.module.css';
-import { Button, Chip, Image } from '@mantine/core';
+import { Button, Checkbox, Chip, Image } from '@mantine/core';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useEffect, useState } from 'react';
 import { UPDATE_ROOM_STATUS_MUTATION } from '@/gql/mutation';
 import { useMutation } from '@apollo/client';
@@ -13,17 +15,35 @@ export interface RoomProps {
 
 export default function Room({ room, logo, index }: RoomProps) {
   const [checked, setChecked] = useState(false);
+  const [viewStudents, setViewStudents] = useState(false);
   const [updateRoom] = useMutation(UPDATE_ROOM_STATUS_MUTATION, { client });
   const [count, setCount] = useState(0);
+  const [registered, setRegistered] = useState<any[]>([]);
+  const [remaining, setRemaining] = useState<any[]>([]);
+  const [completed, setCompleted] = useState<any[]>([]);
 
-  // useEffect(() => {
-
-  // }, [room]);
+  useEffect(() => {
+    room.interviews.map((interview: any) => {
+      const registeredStudents: any = [];
+      interview.students.map((student: any) => {
+        registeredStudents.push(student);
+      })
+      setRegistered(registeredStudents);
+      setRemaining(registeredStudents);
+      setCount(interview.students.length);
+    })
+  }, []);
 
   useEffect(() => {
     // Use room.roomStatus as a dependency
     setChecked(room.roomStatus === 'vacant');
   }, [room.roomStatus]);
+
+  useEffect(() => {
+    // console.log(completed);
+    // setCount(count-completed.length)
+    setCount(remaining.length);
+  }, [completed, remaining]);
 
   // if room.roomStatus === 'vacant' then set checked to true, else false
   const handleOnChange = () => {
@@ -56,6 +76,30 @@ export default function Room({ room, logo, index }: RoomProps) {
       });
   };
 
+  const handleViewStudents = () => {
+    setViewStudents(!viewStudents);
+  }
+
+  const handleStudentSelection = (student: any, checked: boolean) => {
+    setRemaining((prevRemaining) => {
+      if (checked) {
+        // Remove the student from remaining
+        const updatedRemaining = prevRemaining.filter((s) => s.id !== student.id);
+
+        // Add the student to completed
+        setCompleted((prevCompleted) => [...prevCompleted, student.id]);
+
+        return updatedRemaining;
+      } else {
+        // Remove the student from completed
+        const updatedCompleted = completed.filter((id) => id !== student.id);
+
+        // Add the student back to remaining
+        return [...prevRemaining, student];
+      }
+    });
+  };
+
   return (
     <div id={`${room.id}`} className={styles['card']}>
       <div className={styles['card-info']}>
@@ -70,11 +114,13 @@ export default function Room({ room, logo, index }: RoomProps) {
             <p className={styles['card-id']}>{room.id}</p>
           </div>
         </div>
-        <div>
-          count
-        </div>
-        <div>
-          {/* <Button>View</Button> */}
+        <div className={styles['room-btns']}>
+          <div className={styles['card-checkbox']}>
+            <h3>{`Remaining: ${count}`}</h3>
+            <Button onClick={() => handleViewStudents()} leftIcon={!viewStudents ? <VisibilityIcon /> : <VisibilityOffIcon />} >
+              View
+            </Button>
+          </div>
           <div className={styles['card-checkbox']}>
             <Chip
               id={`chip-vacant-${index}`}
@@ -97,21 +143,23 @@ export default function Room({ room, logo, index }: RoomProps) {
           </div>
         </div>
       </div>
-      <div style={{ marginTop: '0.5rem' }}>
-        {room.interviews.map((interview: any) => (
-          <div key={interview.id} className={styles['room-students']}>
-            {interview.students.map((student: any) => (
-              <div key={student.id} className={styles['room-student']}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      {
+        viewStudents &&
+        <div style={{ marginTop: '0.5rem' }}>
+          {room.interviews.map((interview: any) => (
+            <div key={interview.id} className={styles['room-students']}>
+              {interview.students.map((student: any) => (
+                <div key={student.id} className={styles['room-student']}>
+                  <Checkbox onChange={(event) => { handleStudentSelection(student, event.target.checked) }} />
                   <p className={styles['bold-text']}>{student.name}</p>
-                  <p className={styles['card-id']}>ID: {student.id}</p>
+                  <p>{student.email}</p>
+                  <p className={styles['card-id']}>{student.id}</p>
                 </div>
-                <p>{student.email}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      }
     </div>
   );
 }

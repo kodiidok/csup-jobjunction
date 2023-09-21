@@ -65,7 +65,7 @@ export class RoomResolver {
             );
             // Wait for all interviews to be fetched before assigning to room.interviews
             room.interviews = await Promise.all(interviewPromises);
-            console.log(room);
+            // console.log(room);
           }
           roomsWithStalls.push(room);
         }),

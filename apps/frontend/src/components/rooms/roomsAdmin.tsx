@@ -6,6 +6,7 @@ import { logo } from '@/util/resourceImages';;
 import Room from './roomAdmin';
 import { useEffect, useState } from 'react';
 import { Button } from '@mantine/core';
+import SaveIcon from '@mui/icons-material/Save';
 
 export default function Rooms() {
   const [rooms, setRooms] = useState<any[]>([]);
@@ -74,6 +75,10 @@ export default function Rooms() {
     setFilteredRooms(rooms);
   }
 
+  const handleSave = () => {
+
+  }
+  
   return (
     <div>
       <div className={styles['filter']}>
@@ -81,6 +86,7 @@ export default function Rooms() {
         <div className={styles['filter-btn-container']}>
           <Button color='cyan' onClick={filterRooms}>Filter Rooms</Button>
           <Button color='orange' onClick={resetFilter}>Reset</Button>
+          <Button onClick={handleSave}>Save</Button>
         </div>
       </div>
       <div className={styles.queryContainer}>
