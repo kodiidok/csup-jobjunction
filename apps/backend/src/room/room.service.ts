@@ -24,6 +24,10 @@ export class RoomService {
   }
 
   async updateRoom(id: string, input: Partial<Room>): Promise<Room> {
+    if (input.completedInterviewIds[0] === '{}') {
+      input.completedInterviewIds = [];
+    }
+    console.log(input.completedInterviewIds);
     await this.roomRepository.update(id, input);
     return await this.roomRepository.findOne({ where: { id } });
   }

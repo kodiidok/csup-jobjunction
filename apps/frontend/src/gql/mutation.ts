@@ -20,9 +20,8 @@ export const UPDATE_ROOM_MUTATION = gql`
     updateRoom(id: $id, input: $input) {
       completedInterviews {
         id
-        students {
-          id
-        }
+        name
+        email
       }
       floor
       id

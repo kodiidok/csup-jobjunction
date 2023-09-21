@@ -185,6 +185,11 @@
   padding-right: 1rem;
 }
 
+.inactive-student {
+  background-color: var(--accent-green-trans);
+  color: var(--green7);
+}
+
 .room-btns {
   display: flex;
   flex-direction: column;

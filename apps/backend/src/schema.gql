@@ -129,7 +129,7 @@ type Role {
 }
 
 type Room {
-  completedInterviews: [Interview!]
+  completedInterviews: [Student!]
   floor: String
   id: ID!
   interviews: [Interview!]

@@ -17,6 +17,7 @@ import { Company } from 'src/company/company.entity';
 import { CompanyService } from 'src/company/company.service';
 import { InterviewService } from 'src/interview/interview.service';
 import { Interview } from 'src/interview/interview.entity';
+import { StudentService } from 'src/student/student.service';
 
 @Resolver(() => Room)
 export class RoomResolver {
@@ -25,6 +26,7 @@ export class RoomResolver {
     private readonly stallService: StallService,
     private readonly companyService: CompanyService,
     private readonly interviewService: InterviewService,
+    private readonly studentService: StudentService,
   ) {}
 
   @ResolveField(() => Stall, { nullable: true })
@@ -63,8 +65,24 @@ export class RoomResolver {
                 return interview;
               },
             );
-              // Wait for all interviews to be fetched before assigning to room.interviews
-              room.interviews = await Promise.all(interviewPromises);
+            // Wait for all interviews to be fetched before assigning to room.interviews
+            room.interviews = await Promise.all(interviewPromises);
+          }
+          if (room.completedInterviewIds) {
+            room.completedInterviewIds = room.completedInterviewIds.map(
+              (studentId) => studentId.replace(/[{}]/g, ''),
+            );
+            // Use Promise.all to wait for all students to be fetched
+            const studentPromises = room.completedInterviewIds.map(
+              async (studentId) => {
+                const student = await this.studentService.findStudentById(
+                  studentId,
+                );
+                return student;
+              },
+            );
+            // Wait for all interviews to be fetched before assigning to room.interviews
+            room.completedInterviews = await Promise.all(studentPromises);
           }
           roomsWithStalls.push(room);
         }),
@@ -86,6 +104,22 @@ export class RoomResolver {
       room.stall.company = await this.companyService.findCompanyById(
         room.stall.companyId,
       );
+      if (room.completedInterviewIds) {
+        room.completedInterviewIds = room.completedInterviewIds.map(
+          (studentId) => studentId.replace(/[{}]/g, ''),
+        );
+        // Use Promise.all to wait for all students to be fetched
+        const studentPromises = room.completedInterviewIds.map(
+          async (studentId) => {
+            const student = await this.studentService.findStudentById(
+              studentId,
+            );
+            return student;
+          },
+        );
+        // Wait for all interviews to be fetched before assigning to room.interviews
+        room.completedInterviews = await Promise.all(studentPromises);
+      }
       return room;
     } catch (error) {
       throw new Error(`Error fetching room by ID: ${error.message}`);
@@ -105,16 +139,30 @@ export class RoomResolver {
           interviewId.replace(/[{}]/g, ''),
         );
         // Use Promise.all to wait for all interviews to be fetched
-        const interviewPromises = room.interviewIds.map(
-          async (interviewId) => {
-            const interview = await this.interviewService.findInterviewById(
-              interviewId,
+        const interviewPromises = room.interviewIds.map(async (interviewId) => {
+          const interview = await this.interviewService.findInterviewById(
+            interviewId,
+          );
+          return interview;
+        });
+        // Wait for all interviews to be fetched before assigning to room.interviews
+        room.interviews = await Promise.all(interviewPromises);
+      }
+      if (room.completedInterviewIds) {
+        room.completedInterviewIds = room.completedInterviewIds.map(
+          (studentId) => studentId.replace(/[{}]/g, ''),
+        );
+        // Use Promise.all to wait for all students to be fetched
+        const studentPromises = room.completedInterviewIds.map(
+          async (studentId) => {
+            const student = await this.studentService.findStudentById(
+              studentId,
             );
-            return interview;
+            return student;
           },
         );
-          // Wait for all interviews to be fetched before assigning to room.interviews
-          room.interviews = await Promise.all(interviewPromises);
+        // Wait for all interviews to be fetched before assigning to room.interviews
+        room.completedInterviews = await Promise.all(studentPromises);
       }
       return room;
     } catch (error) {
@@ -138,16 +186,30 @@ export class RoomResolver {
           interviewId.replace(/[{}]/g, ''),
         );
         // Use Promise.all to wait for all interviews to be fetched
-        const interviewPromises = room.interviewIds.map(
-          async (interviewId) => {
-            const interview = await this.interviewService.findInterviewById(
-              interviewId,
+        const interviewPromises = room.interviewIds.map(async (interviewId) => {
+          const interview = await this.interviewService.findInterviewById(
+            interviewId,
+          );
+          return interview;
+        });
+        // Wait for all interviews to be fetched before assigning to room.interviews
+        room.interviews = await Promise.all(interviewPromises);
+      }
+      if (room.completedInterviewIds) {
+        room.completedInterviewIds = room.completedInterviewIds.map(
+          (studentId) => studentId.replace(/[{}]/g, ''),
+        );
+        // Use Promise.all to wait for all students to be fetched
+        const studentPromises = room.completedInterviewIds.map(
+          async (studentId) => {
+            const student = await this.studentService.findStudentById(
+              studentId,
             );
-            return interview;
+            return student;
           },
         );
-          // Wait for all interviews to be fetched before assigning to room.interviews
-          room.interviews = await Promise.all(interviewPromises);
+        // Wait for all interviews to be fetched before assigning to room.interviews
+        room.completedInterviews = await Promise.all(studentPromises);
       }
       return room;
     } catch (error) {

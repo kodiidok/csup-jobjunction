@@ -10,6 +10,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Interview } from 'src/interview/interview.entity';
 import { Stall } from 'src/stall/stall.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { Student } from 'src/student/student.entity';
 
 @Entity()
 @ObjectType()
@@ -41,9 +42,9 @@ export class Room {
   @Column('simple-array', { nullable: true })
   interviewIds: string[];
 
-  @OneToMany((type) => Interview, (interview: Interview) => interview.room)
-  @Field(() => [Interview], { nullable: true })
-  completedInterviews: Interview[];
+  @OneToMany((type) => Student, (student: Student) => student.id)
+  @Field(() => [Student], { nullable: true })
+  completedInterviews: Student[];
 
   @Column('simple-array', { nullable: true })
   completedInterviewIds: string[];

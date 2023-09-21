@@ -32,6 +32,14 @@ export class StudentService {
   }
 
   async findStudentById(id: string): Promise<Student> {
+    if (id === '') {
+      const student = new Student();
+      student.email = '';
+      student.password = ''
+      student.studentId = ''
+      student.username = ''
+      return student;
+    }
     return await this.studentRepository.findOne({ where: { id } });
   }
 

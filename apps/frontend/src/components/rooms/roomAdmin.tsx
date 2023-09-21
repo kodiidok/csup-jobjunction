@@ -56,11 +56,9 @@ export default function Room({ room, logo, index }: RoomProps) {
   };
 
   const handleUpdateRoomInterviews = (id: string, completed: any[], remainingInterviews: any[]) => {
-    // const remainingInterviewsStudentIds = remainingInterviews.map(interview => interview.id);
     const completedInterviewsStudentIds = completed.map(interview => interview.id);
     // Convert the array to a string in the desired format
-    const resultString = `{${completedInterviewsStudentIds.join(', ')}, }`;
-    // console.log(remainingInterviewsStudentIds, completedInterviewsStudentIds, resultString);
+    const resultString = `{${completedInterviewsStudentIds.join(',')}}`;
     updateRoom({
       variables: {
         id: id,
@@ -103,6 +101,7 @@ export default function Room({ room, logo, index }: RoomProps) {
   }
 
   const handleStudentSelection = (student: any, checked: boolean) => {
+    console.log(student, checked);
     setRemaining((prevRemaining) => {
       if (checked) {
         // Remove the student from remaining
@@ -178,14 +177,27 @@ export default function Room({ room, logo, index }: RoomProps) {
         <div style={{ marginTop: '0.5rem' }}>
           {room.interviews.map((interview: any) => (
             <div key={interview.id} className={styles['room-students']}>
-              {interview.students.map((student: any) => (
-                <div key={student.id} className={styles['room-student']}>
-                  <Checkbox onChange={(event) => { handleStudentSelection(student, event.target.checked) }} />
-                  <p className={styles['bold-text']}>{student.name}</p>
-                  <p>{student.email}</p>
-                  {/* <p className={styles['card-id']}>{student.id}</p> */}
-                </div>
-              ))}
+              {interview.students.map((student: any) => {
+                const isStudentInCompletedInterviews = room.completedInterviews
+                  ? room.completedInterviews.find((completedStudent: any) => completedStudent.id === student.id)
+                  : null;
+
+                return (
+                  <div
+                    key={student.id}
+                    className={`${styles['room-student']} ${checked ? styles['inactive-student'] : ''}`}
+                  >
+                    <Checkbox
+                      onChange={(event) => {
+                        handleStudentSelection(student, event.target.checked)
+                      }}
+                    />
+                    <p className={styles['bold-text']}>{student.name}</p>
+                    <p>{student.email}</p>
+                    {/* <p className={styles['card-id']}>{student.id}</p> */}
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
