@@ -15,6 +15,7 @@ import { Stall } from 'src/stall/stall.entity';
 import { StallService } from 'src/stall/stall.service';
 import { Company } from 'src/company/company.entity';
 import { CompanyService } from 'src/company/company.service';
+import { InterviewService } from 'src/interview/interview.service';
 
 @Resolver(() => Room)
 export class RoomResolver {
@@ -22,6 +23,7 @@ export class RoomResolver {
     private readonly roomService: RoomService,
     private readonly stallService: StallService,
     private readonly companyService: CompanyService,
+    private readonly interviewService: InterviewService,
   ) {}
 
   @ResolveField(() => Stall, { nullable: true })
@@ -29,10 +31,10 @@ export class RoomResolver {
     return room.stall || null;
   }
 
-  @ResolveField(() => Company, { nullable: true })
-  async company(@Parent() stall: Stall): Promise<Company | null> {
-    return stall.company || null;
-  }
+  // @ResolveField(() => Company, { nullable: true })
+  // async company(@Parent() stall: Stall): Promise<Company | null> {
+  //   return stall.company || null;
+  // }
 
   @Query(() => [Room], { name: 'rooms' })
   async findAllRooms(): Promise<Room[]> {
@@ -45,10 +47,20 @@ export class RoomResolver {
             room.stall = await this.stallService.findStallById(room.stallId);
             room.stall.company = await this.companyService.findCompanyById(room.stall.companyId);
           }
+          if (room.interviewIds) {
+            const roomInterviews = [];
+            room.interviewIds.map(async (interviewId) => {
+              interviewId = interviewId.replace(/[{}]/g, '');
+              const interview = await this.interviewService.findInterviewById(interviewId);
+              roomInterviews.push(interview);
+            });
+            room.interviews = roomInterviews;
+          }
           roomsWithStalls.push(room);
         }),
       );
       return roomsWithStalls;
+      // return rooms;
     } catch (error) {
       throw new Error(`Error fetching rooms: ${error.message}`);
     }

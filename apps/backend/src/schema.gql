@@ -129,9 +129,9 @@ type Role {
 }
 
 type Room {
-  company: Company
   currentStudent: String
   id: ID!
+  interviews: [Interview!]
   roomNumber: String!
   roomStatus: String!
   stall: Stall

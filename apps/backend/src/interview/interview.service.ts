@@ -41,6 +41,26 @@ export class InterviewService {
     return interviews;
   }
 
+  async findInterviewsByRoomId(roomId: string): Promise<Interview[]> {
+    const interviews = await this.interviewRepository.find();
+    const interviewsInRoom = [];
+    await Promise.all(
+      interviews.map(async (interview) => {
+        if (interview.roomId === roomId) {
+          const room = await this.roomService.findRoomById(interview.roomId);
+          // const students = await this.studentService.findStudentsByInterviewId(
+          //   interview.id
+          // );
+          interview.room = room;
+          // interview.students = students;
+          interviewsInRoom.push(interview);
+        }
+      }),
+    );
+    console.log(interviewsInRoom);
+    return interviewsInRoom;
+  }
+
   async findInterviewById(id: string): Promise<Interview> {
     const interview = await this.interviewRepository.findOne({ where: { id } });
     const room = await this.roomService.findRoomById(interview.roomId);

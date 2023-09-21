@@ -30,8 +30,12 @@ export class Room {
   @Field({ nullable: true })
   currentStudent?: string;
 
-  @OneToMany((type) => Interview, (interview: Interview) => interview.id)
+  @OneToMany((type) => Interview, (interview: Interview) => interview.room)
+  @Field(() => [Interview], { nullable: true })
   interviews: Interview[];
+
+  @Column('simple-array', { nullable: true })
+  interviewIds: string[];
 
   @OneToOne((type) => Stall, (stall: Stall) => stall.id)
   @JoinColumn({ name: 'stallId', referencedColumnName: 'id' })
